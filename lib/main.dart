@@ -60,28 +60,13 @@ class NewWidget extends StatelessWidget {
                       color: Colors.white,
                       child: Column(
                         children: <Widget>[
+                          //Laps
                           Expanded(
-                            //Max laps
-                            child: Container(
-                              color: Colors.black,
-                              child: CupertinoPicker(
-                                itemExtent: 32,
-                                onSelectedItemChanged: (i) {
-                                  print(Provider.of<Controller>(context)
-                                      .testString);
-                                  Provider.of<Controller>(context)
-                                      .setMaxLaps(i);
-                                },
-                                children:
-                                    Provider.of<Controller>(context).picker0To9,
-                              ),
-                            ),
+                            child: pickerContainer(),
                           ),
+                          //Max laps
                           Expanded(
-                            //Max laps
-                            child: Container(
-                              color: Colors.green,
-                            ),
+                            child: pickerContainer(),
                           )
                         ],
                       ),
@@ -120,6 +105,38 @@ class NewWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class pickerContainer extends StatelessWidget {
+//  const pickerContainer({
+////    Key key,
+////  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.black,
+      child: LayoutBuilder(builder: (context, constraint) {
+        return CupertinoTheme(
+          data: CupertinoThemeData(
+            textTheme: CupertinoTextThemeData(
+                pickerTextStyle: TextStyle(
+              fontSize: constraint.maxHeight * 0.2,
+            )
+                // height: constraint.maxHeight * 1.2),
+                ),
+          ),
+          child: CupertinoPicker(
+            itemExtent: constraint.maxHeight * 0.2,
+            onSelectedItemChanged: (i) {
+              Provider.of<Controller>(context).setMaxLaps(i);
+            },
+            children: Provider.of<Controller>(context).picker0To9,
+          ),
+        );
+      }),
     );
   }
 }
