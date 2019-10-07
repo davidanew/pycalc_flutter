@@ -62,11 +62,19 @@ class NewWidget extends StatelessWidget {
                         children: <Widget>[
                           //Laps
                           Expanded(
-                            child: pickerContainer(),
+                            child: PickerContainer(onSelectedItemChanged: (i) {
+                              Provider.of<Controller>(context)
+                                  .lapsIndexSubject
+                                  .add(i);
+                            }),
                           ),
                           //Max laps
                           Expanded(
-                            child: pickerContainer(),
+                            child: PickerContainer(onSelectedItemChanged: (i) {
+                              Provider.of<Controller>(context)
+                                  .maxLapsIndexSubject
+                                  .add(i);
+                            }),
                           )
                         ],
                       ),
@@ -85,8 +93,7 @@ class NewWidget extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: StreamBuilder<String>(
-                        stream: Provider.of<Controller>(context)
-                            .correctedTimeOutput,
+                        stream: Provider.of<Controller>(context).lapRatioString,
                         initialData: '',
                         builder: (context, snapshot) {
                           return Text(
@@ -109,10 +116,14 @@ class NewWidget extends StatelessWidget {
   }
 }
 
-class pickerContainer extends StatelessWidget {
+class PickerContainer extends StatelessWidget {
 //  const pickerContainer({
-////    Key key,
-////  }) : super(key: key);
+//    Key key,
+//  }) : super(key: key);
+
+  final void Function(int) onSelectedItemChanged;
+
+  PickerContainer({@required this.onSelectedItemChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +142,8 @@ class pickerContainer extends StatelessWidget {
           child: CupertinoPicker(
             itemExtent: constraint.maxHeight * 0.2,
             onSelectedItemChanged: (i) {
-              Provider.of<Controller>(context).setMaxLaps(i);
+//              Provider.of<Controller>(context).setMaxLaps(i);
+              onSelectedItemChanged(i);
             },
             children: Provider.of<Controller>(context).picker0To9,
           ),
