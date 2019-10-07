@@ -52,6 +52,26 @@ class NewWidget extends StatelessWidget {
                     flex: 2,
                     child: Container(
                       color: Colors.lightBlueAccent,
+                      child: Column(
+                        children: <Widget>[
+                          //Laps
+                          Expanded(
+                            child: PickerContainer(onSelectedItemChanged: (i) {
+                              Provider.of<Controller>(context)
+                                  .timeIndexSubject
+                                  .add(i);
+                            }),
+                          ),
+                          //Max laps
+                          Expanded(
+                            child: PickerContainer(onSelectedItemChanged: (i) {
+                              Provider.of<Controller>(context)
+                                  .pyIndexSubject
+                                  .add(i);
+                            }),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   //Laps and max laps
@@ -93,7 +113,7 @@ class NewWidget extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: StreamBuilder<String>(
-                        stream: Provider.of<Controller>(context).lapRatioString,
+                        stream: Provider.of<Controller>(context).resultString,
                         initialData: '',
                         builder: (context, snapshot) {
                           return Text(

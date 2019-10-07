@@ -1,48 +1,46 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:provider/provider.dart';
-import 'dart:async';
+//import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 class Controller {
   String testString = 'Test string';
 
-//  final _correctedTimeController = StreamController<String>();
-//  StreamSink get _correctedTimePublisher => _correctedTimeController.sink;
-//  Stream<String> get correctedTimeOutput => _correctedTimeController.stream;
-
   List<Text> picker0To9 =
       Iterable<int>.generate(10).map<Text>((i) => Text(i.toString())).toList();
 
-  //Stream<String> stream1;
-  //Stream<String> stream2;
+  PublishSubject<int> lapsIndexSubject = PublishSubject<int>();
+  PublishSubject<int> maxLapsIndexSubject = PublishSubject<int>();
+  PublishSubject<int> timeIndexSubject = PublishSubject<int>();
+  PublishSubject<int> pyIndexSubject = PublishSubject<int>();
 
-  var lapsIndexSubject = new PublishSubject<int>();
-  var maxLapsIndexSubject = new PublishSubject<int>();
-  Observable<String> lapRatioString;
+  Observable<String> resultString;
 
   Controller() {
-    lapRatioString = Observable.combineLatest2(
-            lapsIndexSubject, maxLapsIndexSubject, (a, b) => a + b)
-        .map((item) => item.toString());
+    Observable<double> lapsDouble =
+        lapsIndexSubject.map((i) => i.toDouble()).startWith(0);
+    Observable<double> maxLapsDouble =
+        maxLapsIndexSubject.map((i) => i.toDouble()).startWith(0);
+    Observable<double> timeDouble =
+        timeIndexSubject.map((i) => i.toDouble()).startWith(0);
+    Observable<double> pyDouble =
+        pyIndexSubject.map((i) => i.toDouble()).startWith(0);
 
-    //Stream<String> concat =
-    //   Observable.combineLatest2(stream1, stream2, (a, b) => a + b);
+    //could just pass in all variables here to standard function
+    //it would be much simpler that what is in ios version
+
+    Observable<double> result = Observable.combineLatest4(timeDouble, pyDouble,
+        lapsDouble, maxLapsDouble, (a, b, c, d) => (a / b) * (c / d));
+
+    resultString = result.map((item) => item.toString());
+
+    //similar function needed for output string
   }
-
-//  void setLaps(int i) {
-////    _correctedTimePublisher.add(i.toString());
-//    lapsSubject.add(i.toString());
-//  }
-//
-//  void setMaxLaps(int i) {
-////    _correctedTimePublisher.add(i.toString());
-//    maxLapsSubject.add(i.toString());
-//  }
 
   void dispose() {
 //    _correctedTimeController.close();
     maxLapsIndexSubject.close();
     lapsIndexSubject.close();
+    timeIndexSubject.close();
+    pyIndexSubject.close();
   }
 }
