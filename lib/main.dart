@@ -41,42 +41,103 @@ class NewWidget extends StatelessWidget {
         children: <Widget>[
           //All pickers
           Expanded(
-            //Pickers here
             flex: 2,
             child: Container(
               color: Colors.red,
               child: Row(
                 children: <Widget>[
                   //Elapsed time and PY
+
                   Expanded(
-                    flex: 2,
+                    flex: 25,
                     child: Container(
+                      padding: EdgeInsets.only(left: 20, right: 20),
                       color: Colors.lightBlueAccent,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           //Laps
                           Expanded(
-                            child: PickerContainer(onSelectedItemChanged: (i) {
-                              Provider.of<Controller>(context)
-                                  .timeIndexSubject
-                                  .add(i);
-                            }),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  //SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .timeIndexSubject
+                                        .add(i);
+                                  })),
+                                  SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .timeIndexSubject
+                                        .add(i);
+                                  })),
+                                  SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .timeIndexSubject
+                                        .add(i);
+                                  })),
+                                  //SizedBox(width: 10),
+                                ],
+                              ),
+                            ),
                           ),
                           //Max laps
                           Expanded(
-                            child: PickerContainer(onSelectedItemChanged: (i) {
-                              Provider.of<Controller>(context)
-                                  .pyIndexSubject
-                                  .add(i);
-                            }),
-                          )
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  //SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .pyIndexSubject
+                                        .add(i);
+                                  })),
+                                  SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .pyIndexSubject
+                                        .add(i);
+                                  })),
+                                  SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .pyIndexSubject
+                                        .add(i);
+                                  })),
+                                  SizedBox(width: 10),
+                                  Expanded(child: PickerContainer(
+                                      onSelectedItemChanged: (i) {
+                                    Provider.of<Controller>(context)
+                                        .pyIndexSubject
+                                        .add(i);
+                                  })),
+                                  //SizedBox(width: 10),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
                   //Laps and max laps
                   Expanded(
+                    flex: 10,
                     child: Container(
+                      padding: EdgeInsets.only(left: 20, right: 20),
                       color: Colors.white,
                       child: Column(
                         children: <Widget>[
@@ -106,7 +167,6 @@ class NewWidget extends StatelessWidget {
           ),
           //All output
           Expanded(
-            //Output here
             child: Container(
               color: Colors.blue,
               child: Column(
