@@ -13,31 +13,70 @@ class Controller {
   PublishSubject<int> timeIndexSubject = PublishSubject<int>();
   PublishSubject<int> pyIndexSubject = PublishSubject<int>();
 
-  Observable<String> resultString;
+  Observable<String> correctedTimeString;
+
+  Observable<String> outputLabel;
 
   Controller() {
-    Observable<double> lapsDouble =
-        lapsIndexSubject.map((i) => i.toDouble()).startWith(0);
-    Observable<double> maxLapsDouble =
-        maxLapsIndexSubject.map((i) => i.toDouble()).startWith(0);
     Observable<double> timeDouble =
         timeIndexSubject.map((i) => i.toDouble()).startWith(0);
     Observable<double> pyDouble =
         pyIndexSubject.map((i) => i.toDouble()).startWith(0);
+    Observable<double> lapsDouble =
+        lapsIndexSubject.map((i) => i.toDouble()).startWith(0);
+    Observable<double> maxLapsDouble =
+        maxLapsIndexSubject.map((i) => i.toDouble()).startWith(0);
 
-    //could just pass in all variables here to standard function
-    //it would be much simpler that what is in ios version
+    correctedTimeString = Observable.combineLatest4(
+        timeDouble,
+        pyDouble,
+        lapsDouble,
+        maxLapsDouble,
+        (a, b, c, d) =>
+            calcCorrectedTimeString(time: a, py: b, laps: c, maxLaps: d));
 
-    Observable<double> result = Observable.combineLatest4(timeDouble, pyDouble,
-        lapsDouble, maxLapsDouble, (a, b, c, d) => (a / b) * (c / d));
+    outputLabel = Observable.combineLatest4(
+        timeDouble,
+        pyDouble,
+        lapsDouble,
+        maxLapsDouble,
+        (a, b, c, d) => outputLabelText(time: a, py: b, laps: c, maxLaps: d));
+  }
 
-    resultString = result.map((item) => item.toString());
+  String calcCorrectedTimeString(
+      {@required double time,
+      @required double py,
+      @required double laps,
+      @required double maxLaps}) {
+    if (time == 0 || py == 0 || laps == 0 || maxLaps == 0 || maxLaps < laps) {
+      return ('');
+    } else {
+      final double correctedTime = (time / py) * (maxLaps / laps);
+      return correctedTime.toString();
+    }
+  }
 
-    //similar function needed for output string
+  String outputLabelText(
+      {@required double time,
+      @required double py,
+      @required double laps,
+      @required double maxLaps}) {
+    if (time == 0) {
+      return ('Please set elapsed time');
+    } else if (py == 0) {
+      return ('Please set PY');
+    } else if (laps == 0) {
+      return ('Please set Laps');
+    } else if (maxLaps == 0) {
+      return ('Please set Max laps');
+    } else if (maxLaps < laps) {
+      return ('Laps should be equal or less than max laps');
+    } else {
+      return 'Corrected Time';
+    }
   }
 
   void dispose() {
-//    _correctedTimeController.close();
     maxLapsIndexSubject.close();
     lapsIndexSubject.close();
     timeIndexSubject.close();

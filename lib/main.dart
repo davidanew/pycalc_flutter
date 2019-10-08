@@ -113,7 +113,8 @@ class NewWidget extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: StreamBuilder<String>(
-                        stream: Provider.of<Controller>(context).resultString,
+                        stream: Provider.of<Controller>(context)
+                            .correctedTimeString,
                         initialData: '',
                         builder: (context, snapshot) {
                           return Text(
@@ -122,9 +123,14 @@ class NewWidget extends StatelessWidget {
                         }),
                   ),
                   Expanded(
-                    child: Text(
-                      'and here',
-                    ),
+                    child: StreamBuilder<String>(
+                        stream: Provider.of<Controller>(context).outputLabel,
+                        initialData: '',
+                        builder: (context, snapshot) {
+                          return Text(
+                            snapshot.data,
+                          );
+                        }),
                   ),
                 ],
               ),
