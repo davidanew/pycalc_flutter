@@ -12,15 +12,15 @@ class Controller {
   final List<Text> picker0To99 =
       Iterable<int>.generate(100).map<Text>((i) => Text(i.toString())).toList();
 
-  PublishSubject<int> lapsIndexSubject = PublishSubject<int>();
-  PublishSubject<int> maxLapsIndexSubject = PublishSubject<int>();
-  PublishSubject<int> timeHoursIndexSubject = PublishSubject<int>();
-  PublishSubject<int> timeMinutesIndexSubject = PublishSubject<int>();
-  PublishSubject<int> timeSecondsIndexSubject = PublishSubject<int>();
-  PublishSubject<int> pyThousandsIndexSubject = PublishSubject<int>();
-  PublishSubject<int> pyHundredsIndexSubject = PublishSubject<int>();
-  PublishSubject<int> pyTensIndexSubject = PublishSubject<int>();
-  PublishSubject<int> pyUnitsIndexSubject = PublishSubject<int>();
+  ReplaySubject<int> lapsIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> maxLapsIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> timeHoursIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> timeMinutesIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> timeSecondsIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> pyThousandsIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> pyHundredsIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> pyTensIndexSubject = ReplaySubject<int>();
+  ReplaySubject<int> pyUnitsIndexSubject = ReplaySubject<int>();
 
   Observable<String> correctedTimeString;
 
@@ -32,22 +32,9 @@ class Controller {
             timeMinutesIndexSubject,
             timeSecondsIndexSubject,
             (a, b, c) => a.toDouble() * 3600 + b.toDouble() * 60 + c.toDouble())
-        .startWith(0.toDouble())
         .asBroadcastStream();
 
-    timeDouble.listen(print);
-
-    timeHoursIndexSubject.add(0);
-    timeMinutesIndexSubject.add(0);
-    timeSecondsIndexSubject.add(0);
-
-//    Observable<dynamic> timeDouble = Observable.combineLatest3(
-//        timeHoursIndexSubject,
-//        timeMinutesIndexSubject,
-//        timeSecondsIndexSubject,
-//        (a, b, c) =>
-//            (a.toDouble() * 3600 + b.toDouble() * 60 + c.toDouble() + .1)
-//                .toDouble()).asBroadcastStream();
+    //timeDouble.listen(print);
 
     Observable<dynamic> pyDouble = Observable.combineLatest4(
         pyThousandsIndexSubject,
@@ -58,17 +45,21 @@ class Controller {
             a.toDouble() * 1000 +
             b.toDouble() * 100 +
             c.toDouble() * 10 +
-            d.toDouble()).startWith(0.toDouble()).asBroadcastStream();
-//
-//    Observable<double> timeDouble =
-//        timeSecondsIndexSubject.map((i) => i.toDouble()).startWith(0);
-//    Observable<double> pyDouble =
-//        pyUnitsIndexSubject.map((i) => i.toDouble()).startWith(0);
+            d.toDouble()).asBroadcastStream();
 
-    Observable<double> lapsDouble =
-        lapsIndexSubject.map((i) => i.toDouble()).startWith(0);
-    Observable<double> maxLapsDouble =
-        maxLapsIndexSubject.map((i) => i.toDouble()).startWith(0);
+    //pyDouble.listen(print);
+
+    Observable<double> lapsDouble = lapsIndexSubject
+        .map((i) => i.toDouble())
+        //       .startWith(0)
+        .asBroadcastStream();
+    Observable<double> maxLapsDouble = maxLapsIndexSubject
+        .map((i) => i.toDouble())
+        //       .startWith(0)
+        .asBroadcastStream();
+
+    //lapsDouble.listen(print);
+    //maxLapsDouble.listen(print);
 
     correctedTimeString = Observable.combineLatest4(
         timeDouble,
@@ -84,6 +75,18 @@ class Controller {
         lapsDouble,
         maxLapsDouble,
         (a, b, c, d) => _outputLabelText(time: a, py: b, laps: c, maxLaps: d));
+
+    timeHoursIndexSubject.add(0);
+    timeMinutesIndexSubject.add(0);
+    timeSecondsIndexSubject.add(0);
+
+    pyThousandsIndexSubject.add(0);
+    pyHundredsIndexSubject.add(0);
+    pyTensIndexSubject.add(0);
+    pyUnitsIndexSubject.add(0);
+
+    lapsIndexSubject.add(0);
+    maxLapsIndexSubject.add(0);
   }
 
   String _calcCorrectedTimeString(
@@ -94,7 +97,7 @@ class Controller {
     if (time == 0 || py == 0 || laps == 0 || maxLaps == 0 || maxLaps < laps) {
       return ('');
     } else {
-      final double correctedTime = (time / py) * (maxLaps / laps);
+      final double correctedTime = (time * 1000 / py) * (maxLaps / laps);
       return correctedTime.toString();
     }
   }
@@ -104,7 +107,7 @@ class Controller {
       @required double py,
       @required double laps,
       @required double maxLaps}) {
-    print('got here');
+//    print('got here');
     if (time == 0) {
       return ('Please set elapsed time');
     } else if (py == 0) {
@@ -121,11 +124,6 @@ class Controller {
   }
 
   void dispose() {
-//    maxLapsIndexSubject.close();
-//    lapsIndexSubject.close();
-//    timeIndexSubject.close();
-//    pyIndexSubject.close();
-
     lapsIndexSubject.close();
     maxLapsIndexSubject.close();
     timeHoursIndexSubject.close();

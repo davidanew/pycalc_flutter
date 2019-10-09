@@ -271,6 +271,7 @@ class PickerContainer extends StatelessWidget {
                 ),
           ),
           child: CupertinoPicker(
+            backgroundColor: Colors.transparent,
             itemExtent: constraint.maxHeight * 0.2,
             onSelectedItemChanged: (i) {
 //              Provider.of<Controller>(context).setMaxLaps(i);
