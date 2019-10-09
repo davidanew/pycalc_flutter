@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
       builder: (context) => controller,
       child: MaterialApp(
         title: 'pyCalc Flutter',
-        home: SafeArea(
-          child: new NewWidget(),
+        home: Scaffold(
+          body: SafeArea(
+            child: new NewWidget(),
+          ),
         ),
       ),
     );
@@ -47,7 +49,6 @@ class NewWidget extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   //Elapsed time and PY
-
                   Expanded(
                     flex: 25,
                     child: Container(
@@ -56,74 +57,108 @@ class NewWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          //Laps
+                          //Label
+                          Expanded(child: Center(child: Text('Elapsed time'))),
+                          //Elapsed time
                           Expanded(
+                            flex: 3,
                             child: Container(
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   //SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .timeIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To9,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .timeHoursIndexSubject
+                                                .add(i);
+                                          })),
                                   SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .timeIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To59,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .timeMinutesIndexSubject
+                                                .add(i);
+                                          })),
                                   SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .timeIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To59,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .timeSecondsIndexSubject
+                                                .add(i);
+                                          })),
                                   //SizedBox(width: 10),
                                 ],
                               ),
                             ),
                           ),
-                          //Max laps
+                          //Label
+                          Expanded(child: Center(child: Text('Py'))),
+                          //PY
                           Expanded(
+                            flex: 3,
                             child: Container(
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   //SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .pyIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To9,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .pyThousandsIndexSubject
+                                                .add(i);
+                                          })),
                                   SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .pyIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To9,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .pyHundredsIndexSubject
+                                                .add(i);
+                                          })),
                                   SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .pyIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To9,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .pyTensIndexSubject
+                                                .add(i);
+                                          })),
                                   SizedBox(width: 10),
-                                  Expanded(child: PickerContainer(
-                                      onSelectedItemChanged: (i) {
-                                    Provider.of<Controller>(context)
-                                        .pyIndexSubject
-                                        .add(i);
-                                  })),
+                                  Expanded(
+                                      child: PickerContainer(
+                                          contents:
+                                              Provider.of<Controller>(context)
+                                                  .picker0To9,
+                                          onSelectedItemChanged: (i) {
+                                            Provider.of<Controller>(context)
+                                                .pyUnitsIndexSubject
+                                                .add(i);
+                                          })),
                                   //SizedBox(width: 10),
                                 ],
                               ),
@@ -141,21 +176,33 @@ class NewWidget extends StatelessWidget {
                       color: Colors.white,
                       child: Column(
                         children: <Widget>[
+                          //Label
+                          Expanded(child: Center(child: Text('Laps'))),
                           //Laps
                           Expanded(
-                            child: PickerContainer(onSelectedItemChanged: (i) {
-                              Provider.of<Controller>(context)
-                                  .lapsIndexSubject
-                                  .add(i);
-                            }),
+                            flex: 3,
+                            child: PickerContainer(
+                                contents: Provider.of<Controller>(context)
+                                    .picker0To99,
+                                onSelectedItemChanged: (i) {
+                                  Provider.of<Controller>(context)
+                                      .lapsIndexSubject
+                                      .add(i);
+                                }),
                           ),
+                          //Label
+                          Expanded(child: Center(child: Text('Max Laps'))),
                           //Max laps
                           Expanded(
-                            child: PickerContainer(onSelectedItemChanged: (i) {
-                              Provider.of<Controller>(context)
-                                  .maxLapsIndexSubject
-                                  .add(i);
-                            }),
+                            flex: 3,
+                            child: PickerContainer(
+                                contents: Provider.of<Controller>(context)
+                                    .picker0To99,
+                                onSelectedItemChanged: (i) {
+                                  Provider.of<Controller>(context)
+                                      .maxLapsIndexSubject
+                                      .add(i);
+                                }),
                           )
                         ],
                       ),
@@ -203,13 +250,11 @@ class NewWidget extends StatelessWidget {
 }
 
 class PickerContainer extends StatelessWidget {
-//  const pickerContainer({
-//    Key key,
-//  }) : super(key: key);
-
   final void Function(int) onSelectedItemChanged;
+  final List<Text> contents;
 
-  PickerContainer({@required this.onSelectedItemChanged});
+  PickerContainer(
+      {@required this.contents, @required this.onSelectedItemChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +276,7 @@ class PickerContainer extends StatelessWidget {
 //              Provider.of<Controller>(context).setMaxLaps(i);
               onSelectedItemChanged(i);
             },
-            children: Provider.of<Controller>(context).picker0To9,
+            children: contents,
           ),
         );
       }),
