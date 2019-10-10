@@ -44,123 +44,184 @@ class Experiment extends StatelessWidget {
         children: <Widget>[
           //All pickers
           Expanded(
-            flex: 2,
+            flex: 27,
             child: Container(
               //color: Colors.red,
               child: Row(
                 children: <Widget>[
                   //Elapsed time and PY
                   Expanded(
-                    flex: 25,
+                    flex: 17,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      //padding: EdgeInsets.only(left: 20, right: 20),
                       //                    color: Colors.lightBlueAccent,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          //Label
-                          Expanded(child: Center(child: Text('Elapsed time'))),
-                          //Elapsed time
                           Expanded(
-                            flex: 3,
                             child: Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.blue[50],
+                              ),
+                              child: Column(
                                 children: <Widget>[
-                                  //SizedBox(width: 10),
+                                  //Label
                                   Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To9,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .timeHoursIndexSubject
-                                                .add(i);
-                                          })),
-                                  SizedBox(width: 10),
+                                      child: Center(
+                                          child: Text(
+                                    'Elapsed time',
+                                    style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.05),
+                                  ))),
+                                  //Elapsed time
                                   Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To59,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .timeMinutesIndexSubject
-                                                .add(i);
-                                          })),
-                                  SizedBox(width: 10),
-                                  Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To59,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .timeSecondsIndexSubject
-                                                .add(i);
-                                          })),
-                                  //SizedBox(width: 10),
+                                    flex: 4,
+                                    child: Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          //SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To9,
+                                                  onSelectedItemChanged: (i) {
+                                                    print(MediaQuery.of(context)
+                                                        .size
+                                                        .width);
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .timeHoursIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To59,
+                                                  onSelectedItemChanged: (i) {
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .timeMinutesIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To59,
+                                                  onSelectedItemChanged: (i) {
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .timeSecondsIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          //SizedBox(width: 10),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-                          //Label
-                          Expanded(child: Center(child: Text('Py'))),
-                          //PY
                           Expanded(
-                            flex: 3,
                             child: Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.blue[50],
+                              ),
+                              child: Column(
                                 children: <Widget>[
-                                  //SizedBox(width: 10),
+                                  //Label
                                   Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To9,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .pyThousandsIndexSubject
-                                                .add(i);
-                                          })),
-                                  SizedBox(width: 10),
+                                      child: Center(
+                                          child: Text('PY',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05)))),
+                                  //PY
                                   Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To9,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .pyHundredsIndexSubject
-                                                .add(i);
-                                          })),
-                                  SizedBox(width: 10),
-                                  Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To9,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .pyTensIndexSubject
-                                                .add(i);
-                                          })),
-                                  SizedBox(width: 10),
-                                  Expanded(
-                                      child: PickerContainer(
-                                          contents:
-                                              Provider.of<Controller>(context)
-                                                  .picker0To9,
-                                          onSelectedItemChanged: (i) {
-                                            Provider.of<Controller>(context)
-                                                .pyUnitsIndexSubject
-                                                .add(i);
-                                          })),
-                                  //SizedBox(width: 10),
+                                    flex: 4,
+                                    child: Container(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          //SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To9,
+                                                  onSelectedItemChanged: (i) {
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .pyThousandsIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To9,
+                                                  onSelectedItemChanged: (i) {
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .pyHundredsIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To9,
+                                                  onSelectedItemChanged: (i) {
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .pyTensIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                              child: PickerContainer(
+                                                  contents:
+                                                      Provider.of<Controller>(
+                                                              context)
+                                                          .picker0To9,
+                                                  onSelectedItemChanged: (i) {
+                                                    Provider.of<Controller>(
+                                                            context)
+                                                        .pyUnitsIndexSubject
+                                                        .add(i);
+                                                  })),
+                                          //SizedBox(width: 10),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -173,37 +234,87 @@ class Experiment extends StatelessWidget {
                   Expanded(
                     flex: 10,
                     child: Container(
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      //padding: EdgeInsets.only(left: 20, right: 20),
                       //color: Colors.white,
                       child: Column(
                         children: <Widget>[
-                          //Label
-                          Expanded(child: Center(child: Text('Laps'))),
-                          //Laps
                           Expanded(
-                            flex: 3,
-                            child: PickerContainer(
-                                contents: Provider.of<Controller>(context)
-                                    .picker0To99,
-                                onSelectedItemChanged: (i) {
-                                  Provider.of<Controller>(context)
-                                      .lapsIndexSubject
-                                      .add(i);
-                                }),
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.blue[50],
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  //Label
+
+                                  Expanded(
+                                      child: Center(
+                                          child: Text('Laps',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05)))),
+                                  //Laps
+
+                                  Expanded(
+                                    flex: 4,
+                                    child: PickerContainer(
+                                        contents:
+                                            Provider.of<Controller>(context)
+                                                .picker0To99,
+                                        onSelectedItemChanged: (i) {
+                                          Provider.of<Controller>(context)
+                                              .lapsIndexSubject
+                                              .add(i);
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          //Label
-                          Expanded(child: Center(child: Text('Max Laps'))),
-                          //Max laps
                           Expanded(
-                            flex: 3,
-                            child: PickerContainer(
-                                contents: Provider.of<Controller>(context)
-                                    .picker0To99,
-                                onSelectedItemChanged: (i) {
-                                  Provider.of<Controller>(context)
-                                      .maxLapsIndexSubject
-                                      .add(i);
-                                }),
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.blue[50],
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  //Label
+
+                                  Expanded(
+                                      child: Center(
+                                          child: Text('Max Laps',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          0.05)))),
+                                  //Max laps
+
+                                  Expanded(
+                                    flex: 4,
+                                    child: PickerContainer(
+                                        contents:
+                                            Provider.of<Controller>(context)
+                                                .picker0To99,
+                                        onSelectedItemChanged: (i) {
+                                          Provider.of<Controller>(context)
+                                              .maxLapsIndexSubject
+                                              .add(i);
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            ),
                           )
                         ],
                       ),
@@ -215,7 +326,13 @@ class Experiment extends StatelessWidget {
           ),
           //All output
           Expanded(
+            flex: 10,
             child: Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.blue[50],
+              ),
               //color: Colors.blue,
               child: Column(
                 children: <Widget>[
@@ -227,7 +344,10 @@ class Experiment extends StatelessWidget {
                           builder: (context, snapshot) {
                             return Text(
                               snapshot.data,
-                              style: TextStyle(fontSize: 30),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.08),
                             );
                           }),
                     ),
@@ -241,7 +361,9 @@ class Experiment extends StatelessWidget {
                           builder: (context, snapshot) {
                             return Text(
                               snapshot.data,
-                              style: TextStyle(fontSize: 30),
+                              style: TextStyle(
+                                  fontSize:
+                                      MediaQuery.of(context).size.width * 0.1),
                             );
                           }),
                     ),
@@ -266,10 +388,10 @@ class PickerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: Colors.blue[50],
-      ),
+//      decoration: BoxDecoration(
+//        borderRadius: BorderRadius.circular(10.0),
+//        color: Colors.blue[50],
+//      ),
       //color: Colors.white,
       child: LayoutBuilder(builder: (context, constraint) {
         return CupertinoTheme(

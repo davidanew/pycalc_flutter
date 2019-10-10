@@ -3,6 +3,60 @@ information box
 here are
 
 
+class PickerContainer extends StatelessWidget {
+  final void Function(int) onSelectedItemChanged;
+  final List<Text> contents;
+
+  PickerContainer(
+      {@required this.contents, @required this.onSelectedItemChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.blue[50],
+      ),
+      //color: Colors.white,
+      child: LayoutBuilder(builder: (context, constraint) {
+        return CupertinoTheme(
+          data: CupertinoThemeData(
+            //brightness: Brightness.dark,
+            //primaryColor: Colors.green,
+            //primaryContrastingColor: Colors.red,
+            //barBackgroundColor: Colors.purple,
+            //scaffoldBackgroundColor: Colors.teal,
+            textTheme: CupertinoTextThemeData(
+                pickerTextStyle: TextStyle(
+              // foreground: Paint(),
+
+              //backgroundColor: Colors.blue.shade900,
+              //decorationColor: Colors.green,
+              fontSize: constraint.maxHeight * 0.2,
+              color: Colors.black,
+              textBaseline: TextBaseline.alphabetic,
+            )
+                // height: constraint.maxHeight * 1.2),
+                ),
+          ),
+          child: CupertinoPicker(
+            magnification: 1.5,
+            useMagnifier: true,
+            //backgroundColor: Color(0xFF0000FF),
+            backgroundColor: Colors.transparent,
+
+            itemExtent: constraint.maxHeight * 0.20,
+            onSelectedItemChanged: (i) {
+//              Provider.of<Controller>(context).setMaxLaps(i);
+              onSelectedItemChanged(i);
+            },
+            children: contents,
+          ),
+        );
+      }),
+    );
+  }
+}
 
 
 

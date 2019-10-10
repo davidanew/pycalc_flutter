@@ -27,6 +27,8 @@ class Controller {
   Observable<String> outputLabel;
 
   Controller() {
+    //print(MediaQuery.of(context).size.width);
+
     Observable<dynamic> timeDouble = Observable.combineLatest3(
             timeHoursIndexSubject,
             timeMinutesIndexSubject,
@@ -98,7 +100,7 @@ class Controller {
       return ('');
     } else {
       final double correctedTime = (time * 1000 / py) * (maxLaps / laps);
-      return correctedTime.toString();
+      return correctedTime.toStringAsFixed(1);
     }
   }
 
@@ -119,7 +121,7 @@ class Controller {
     } else if (maxLaps < laps) {
       return ('Laps should be equal or less than max laps');
     } else {
-      return 'Corrected Time';
+      return 'Corrected Time (seconds)';
     }
   }
 
