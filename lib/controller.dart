@@ -26,8 +26,8 @@ class Controller {
 
   Observable<String> outputLabel;
 
-  Controller() {
-    //print(MediaQuery.of(context).size.width);
+  Controller(double width) {
+    print(width);
 
     Observable<dynamic> timeDouble = Observable.combineLatest3(
             timeHoursIndexSubject,
