@@ -14,6 +14,10 @@ const double kInputTextFraction = 0.05;
 const double kLabelTextFraction = 0.075;
 const double kOutputTextFraction = 0.1;
 
+const Color kBackgroundColor = Color(0xFF0277BD);
+const Color kCardColor = Color(0xFFE1F5FE);
+//const Color kTextColor = Color(0xFF01579B);
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'pyCalc Flutter',
         home: Scaffold(
-          backgroundColor: Colors.blue,
+          backgroundColor: kBackgroundColor,
           body: SafeArea(
             child: new Experiment(),
           ),
@@ -80,7 +84,7 @@ class Experiment extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width *
                                         kRadiusFraction),
-                                color: Colors.blue[50],
+                                color: kCardColor,
                               ),
                               child: Column(
                                 children: <Widget>[
@@ -88,7 +92,7 @@ class Experiment extends StatelessWidget {
                                   Expanded(
                                       child: Center(
                                           child: Text(
-                                    'Elapsed time',
+                                    'Elapsed Time',
                                     style: TextStyle(
                                         fontSize:
                                             MediaQuery.of(context).size.width *
@@ -173,7 +177,7 @@ class Experiment extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width *
                                         kRadiusFraction),
-                                color: Colors.blue[50],
+                                color: kCardColor,
                               ),
                               child: Column(
                                 children: <Widget>[
@@ -292,7 +296,7 @@ class Experiment extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width *
                                         kRadiusFraction),
-                                color: Colors.blue[50],
+                                color: kCardColor,
                               ),
                               child: Column(
                                 children: <Widget>[
@@ -337,7 +341,7 @@ class Experiment extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                     MediaQuery.of(context).size.width *
                                         kRadiusFraction),
-                                color: Colors.blue[50],
+                                color: kCardColor,
                               ),
                               child: Column(
                                 children: <Widget>[
@@ -384,10 +388,12 @@ class Experiment extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.all(
                   MediaQuery.of(context).size.width * kMarginFraction),
+              padding: EdgeInsets.all(
+                  MediaQuery.of(context).size.width * kPaddingFraction),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
                     MediaQuery.of(context).size.width * kRadiusFraction),
-                color: Colors.blue[50],
+                color: kCardColor,
               ),
               //color: Colors.blue,
               child: Column(
@@ -444,41 +450,24 @@ class PickerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-//      decoration: BoxDecoration(
-//        borderRadius: BorderRadius.circular(10.0),
-//        color: Colors.blue[50],
-//      ),
-      //color: Colors.white,
       child: LayoutBuilder(builder: (context, constraint) {
         return CupertinoTheme(
           data: CupertinoThemeData(
-            //brightness: Brightness.dark,
-            //primaryColor: Colors.green,
-            //primaryContrastingColor: Colors.red,
-            //barBackgroundColor: Colors.purple,
-            //scaffoldBackgroundColor: Colors.teal,
             textTheme: CupertinoTextThemeData(
-                pickerTextStyle: TextStyle(
-              // foreground: Paint(),
-
-              //backgroundColor: Colors.blue.shade900,
-              //decorationColor: Colors.green,
-              fontSize: constraint.maxHeight * 0.18,
-              color: Colors.black,
-              textBaseline: TextBaseline.alphabetic,
-            )
-                // height: constraint.maxHeight * 1.2),
-                ),
+              pickerTextStyle: TextStyle(
+                fontSize: constraint.maxHeight * 0.18,
+                color: Colors.black,
+                textBaseline: TextBaseline.alphabetic,
+              ),
+            ),
           ),
           child: CupertinoPicker(
             magnification: 1.5,
             useMagnifier: true,
             //backgroundColor: Color(0xFF0000FF),
-            backgroundColor: Colors.blue[50],
-
+            backgroundColor: kCardColor,
             itemExtent: constraint.maxHeight * 0.20,
             onSelectedItemChanged: (i) {
-//              Provider.of<Controller>(context).setMaxLaps(i);
               onSelectedItemChanged(i);
             },
             children: contents,

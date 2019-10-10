@@ -134,7 +134,7 @@ class Controller {
     } else if (maxLaps == 0) {
       return ('Please set Max laps');
     } else if (maxLaps < laps) {
-      return ('Laps should be equal or less than max laps');
+      return ('Laps should be equal to or less than max laps');
     } else {
       return 'Corrected Time (seconds)';
     }
