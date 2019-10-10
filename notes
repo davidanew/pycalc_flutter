@@ -1,6 +1,6 @@
-text size and formatting
-information box
-here are
+Center text in picker view
+try other devices
+
 
 
 class PickerContainer extends StatelessWidget {

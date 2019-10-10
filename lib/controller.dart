@@ -5,12 +5,27 @@ import 'package:rxdart/rxdart.dart';
 class Controller {
   String testString = 'Test string';
 
-  final List<Text> picker0To9 =
-      Iterable<int>.generate(10).map<Text>((i) => Text(i.toString())).toList();
-  final List<Text> picker0To59 =
-      Iterable<int>.generate(60).map<Text>((i) => Text(i.toString())).toList();
-  final List<Text> picker0To99 =
-      Iterable<int>.generate(100).map<Text>((i) => Text(i.toString())).toList();
+  final List<Widget> picker0To9 = Iterable<int>.generate(10)
+//      .map<Widget>(
+//        (i) => Container(
+//          //margin: EdgeInsets.only(bottom: 20),
+//          child: Column(
+//            children: <Widget>[
+//              Text(
+//                i.toString(),
+//              ),
+//            ],
+//          ),
+//        ),
+//      )
+      .map<Widget>((i) => Text(i.toString()))
+      .toList();
+  final List<Widget> picker0To59 = Iterable<int>.generate(60)
+      .map<Widget>((i) => Text(i.toString()))
+      .toList();
+  final List<Widget> picker0To99 = Iterable<int>.generate(100)
+      .map<Widget>((i) => Text(i.toString()))
+      .toList();
 
   ReplaySubject<int> lapsIndexSubject = ReplaySubject<int>();
   ReplaySubject<int> maxLapsIndexSubject = ReplaySubject<int>();

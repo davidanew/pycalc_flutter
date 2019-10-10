@@ -436,7 +436,7 @@ class Experiment extends StatelessWidget {
 
 class PickerContainer extends StatelessWidget {
   final void Function(int) onSelectedItemChanged;
-  final List<Text> contents;
+  final List<Widget> contents;
 
   PickerContainer(
       {@required this.contents, @required this.onSelectedItemChanged});
@@ -463,7 +463,7 @@ class PickerContainer extends StatelessWidget {
 
               //backgroundColor: Colors.blue.shade900,
               //decorationColor: Colors.green,
-              fontSize: constraint.maxHeight * 0.2,
+              fontSize: constraint.maxHeight * 0.18,
               color: Colors.black,
               textBaseline: TextBaseline.alphabetic,
             )
