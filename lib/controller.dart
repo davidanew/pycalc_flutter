@@ -1,23 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 class Controller {
-  String testString = 'Test string';
-
+  //GUI uses these to build picker
   final List<Widget> picker0To9 = Iterable<int>.generate(10)
-//      .map<Widget>(
-//        (i) => Container(
-//          //margin: EdgeInsets.only(bottom: 20),
-//          child: Column(
-//            children: <Widget>[
-//              Text(
-//                i.toString(),
-//              ),
-//            ],
-//          ),
-//        ),
-//      )
       .map<Widget>((i) => Text(i.toString()))
       .toList();
   final List<Widget> picker0To59 = Iterable<int>.generate(60)
@@ -27,6 +13,7 @@ class Controller {
       .map<Widget>((i) => Text(i.toString()))
       .toList();
 
+  //Input subjects. in the future try and make these input only
   ReplaySubject<int> lapsIndexSubject = ReplaySubject<int>();
   ReplaySubject<int> maxLapsIndexSubject = ReplaySubject<int>();
   ReplaySubject<int> timeHoursIndexSubject = ReplaySubject<int>();
@@ -37,23 +24,21 @@ class Controller {
   ReplaySubject<int> pyTensIndexSubject = ReplaySubject<int>();
   ReplaySubject<int> pyUnitsIndexSubject = ReplaySubject<int>();
 
+  //Outputs
   Observable<String> correctedTimeString;
-
   Observable<String> outputLabel;
 
-  Controller(double width) {
-    print(width);
-
-    Observable<dynamic> timeDouble = Observable.combineLatest3(
+  Controller() {
+    //calculate time from pickers
+    Observable<dynamic> timeDynamic = Observable.combineLatest3(
             timeHoursIndexSubject,
             timeMinutesIndexSubject,
             timeSecondsIndexSubject,
             (a, b, c) => a.toDouble() * 3600 + b.toDouble() * 60 + c.toDouble())
         .asBroadcastStream();
 
-    //timeDouble.listen(print);
-
-    Observable<dynamic> pyDouble = Observable.combineLatest4(
+    //Calculate PY from pickers
+    Observable<dynamic> pyDynamic = Observable.combineLatest4(
         pyThousandsIndexSubject,
         pyHundredsIndexSubject,
         pyTensIndexSubject,
@@ -64,34 +49,30 @@ class Controller {
             c.toDouble() * 10 +
             d.toDouble()).asBroadcastStream();
 
-    //pyDouble.listen(print);
+    //Also get Laps and Max Laps values from pickers
+    Observable<double> lapsDouble =
+        lapsIndexSubject.map((i) => i.toDouble()).asBroadcastStream();
+    Observable<double> maxLapsDouble =
+        maxLapsIndexSubject.map((i) => i.toDouble()).asBroadcastStream();
 
-    Observable<double> lapsDouble = lapsIndexSubject
-        .map((i) => i.toDouble())
-        //       .startWith(0)
-        .asBroadcastStream();
-    Observable<double> maxLapsDouble = maxLapsIndexSubject
-        .map((i) => i.toDouble())
-        //       .startWith(0)
-        .asBroadcastStream();
-
-    //lapsDouble.listen(print);
-    //maxLapsDouble.listen(print);
-
+    //Calculate corrected time and output to member stream
     correctedTimeString = Observable.combineLatest4(
-        timeDouble,
-        pyDouble,
+        timeDynamic,
+        pyDynamic,
         lapsDouble,
         maxLapsDouble,
         (a, b, c, d) =>
             _calcCorrectedTimeString(time: a, py: b, laps: c, maxLaps: d));
 
+    //Work out corrected time and output to member stream
     outputLabel = Observable.combineLatest4(
-        timeDouble,
-        pyDouble,
+        timeDynamic,
+        pyDynamic,
         lapsDouble,
         maxLapsDouble,
         (a, b, c, d) => _outputLabelText(time: a, py: b, laps: c, maxLaps: d));
+
+    //Add initial values as pickers don't do this
 
     timeHoursIndexSubject.add(0);
     timeMinutesIndexSubject.add(0);
@@ -124,7 +105,6 @@ class Controller {
       @required double py,
       @required double laps,
       @required double maxLaps}) {
-//    print('got here');
     if (time == 0) {
       return ('Please set elapsed time');
     } else if (py == 0) {

@@ -1,35 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-//import 'dart:async';
 import 'package:pycalc_flutter/controller.dart';
+import 'package:pycalc_flutter/constants.dart';
+import 'package:pycalc_flutter/picker_container.dart';
 
 void main() => runApp(MyApp());
 
-const double kMarginFraction = 0.025;
-const double kPaddingFraction = 0.025;
-const double kSpacingFraction = 0.025;
-const double kRadiusFraction = 0.025;
-const double kInputTextFraction = 0.05;
-const double kLabelTextFraction = 0.075;
-const double kOutputTextFraction = 0.1;
-
-const Color kBackgroundColor = Color(0xFF0277BD);
-const Color kCardColor = Color(0xFFE1F5FE);
-//const Color kTextColor = Color(0xFF01579B);
-
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
-  //const test = MediaQuery.of(context).size.width;
-
-  //final String testString = 'test string';
-
   @override
   Widget build(BuildContext context) {
-    //final Controller controller = Controller(MediaQuery.of(context).size.width);
-    final Controller controller = Controller(10);
-    //print(MediaQuery.of(context).size.width);
+    final Controller controller = Controller();
 
     return Provider<Controller>(
       builder: (context) => controller,
@@ -62,18 +43,16 @@ class Experiment extends StatelessWidget {
           Expanded(
             flex: 27,
             child: Container(
-              //color: Colors.red,
               child: Row(
                 children: <Widget>[
                   //Elapsed time and PY
                   Expanded(
                     flex: 17,
                     child: Container(
-                      //padding: EdgeInsets.only(left: 20, right: 20),
-                      //                    color: Colors.lightBlueAccent,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
+                          //elapsed time label and picker
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.all(
@@ -88,17 +67,20 @@ class Experiment extends StatelessWidget {
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  //Label
+                                  //Elapsed time label
                                   Expanded(
-                                      child: Center(
-                                          child: Text(
-                                    'Elapsed Time',
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.width *
+                                    child: Center(
+                                      child: Text(
+                                        'Elapsed Time (H:M:S)',
+                                        style: TextStyle(
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 kInputTextFraction),
-                                  ))),
-                                  //Elapsed time
+                                      ),
+                                    ),
+                                  ),
+                                  //Elapsed time pickers
                                   Expanded(
                                     flex: 4,
                                     child: Container(
@@ -106,57 +88,58 @@ class Experiment extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
-                                          //SizedBox(width: 10),
+                                          //Hours picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To9,
-                                                  onSelectedItemChanged: (i) {
-                                                    print(MediaQuery.of(context)
-                                                        .size
-                                                        .width);
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .timeHoursIndexSubject
-                                                        .add(i);
-                                                  })),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To9,
+                                              onSelectedItemChanged: (i) {
+                                                print(MediaQuery.of(context)
+                                                    .size
+                                                    .width);
+                                                Provider.of<Controller>(context)
+                                                    .timeHoursIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   kSpacingFraction),
+                                          //Minutes picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To59,
-                                                  onSelectedItemChanged: (i) {
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .timeMinutesIndexSubject
-                                                        .add(i);
-                                                  })),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To59,
+                                              onSelectedItemChanged: (i) {
+                                                Provider.of<Controller>(context)
+                                                    .timeMinutesIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   kSpacingFraction),
+                                          //Seconds picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To59,
-                                                  onSelectedItemChanged: (i) {
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .timeSecondsIndexSubject
-                                                        .add(i);
-                                                  })),
-                                          //SizedBox(width: 10),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To59,
+                                              onSelectedItemChanged: (i) {
+                                                Provider.of<Controller>(context)
+                                                    .timeSecondsIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -165,6 +148,7 @@ class Experiment extends StatelessWidget {
                               ),
                             ),
                           ),
+                          //MARK: PY label and picker
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.all(
@@ -181,17 +165,17 @@ class Experiment extends StatelessWidget {
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  //Label
+                                  //PY Label
                                   Expanded(
                                       child: Center(
-                                          child: Text('PY',
+                                          child: Text('Handcap (PY)',
                                               style: TextStyle(
                                                   fontSize: MediaQuery.of(
                                                               context)
                                                           .size
                                                           .width *
                                                       kInputTextFraction)))),
-                                  //PY
+                                  //PY Pickers
                                   Expanded(
                                     flex: 4,
                                     child: Container(
@@ -199,71 +183,73 @@ class Experiment extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
-                                          //SizedBox(width: 10),
+                                          //PY thousands picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To9,
-                                                  onSelectedItemChanged: (i) {
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .pyThousandsIndexSubject
-                                                        .add(i);
-                                                  })),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To9,
+                                              onSelectedItemChanged: (i) {
+                                                Provider.of<Controller>(context)
+                                                    .pyThousandsIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   kSpacingFraction),
+                                          //PY hundreds picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To9,
-                                                  onSelectedItemChanged: (i) {
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .pyHundredsIndexSubject
-                                                        .add(i);
-                                                  })),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To9,
+                                              onSelectedItemChanged: (i) {
+                                                Provider.of<Controller>(context)
+                                                    .pyHundredsIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   kSpacingFraction),
+                                          //PY tens picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To9,
-                                                  onSelectedItemChanged: (i) {
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .pyTensIndexSubject
-                                                        .add(i);
-                                                  })),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To9,
+                                              onSelectedItemChanged: (i) {
+                                                Provider.of<Controller>(context)
+                                                    .pyTensIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   kSpacingFraction),
+                                          //PY units picker
                                           Expanded(
-                                              child: PickerContainer(
-                                                  contents:
-                                                      Provider.of<Controller>(
-                                                              context)
-                                                          .picker0To9,
-                                                  onSelectedItemChanged: (i) {
-                                                    Provider.of<Controller>(
-                                                            context)
-                                                        .pyUnitsIndexSubject
-                                                        .add(i);
-                                                  })),
-                                          //SizedBox(width: 10),
+                                            child: PickerContainer(
+                                              contents: Provider.of<Controller>(
+                                                      context)
+                                                  .picker0To9,
+                                              onSelectedItemChanged: (i) {
+                                                Provider.of<Controller>(context)
+                                                    .pyUnitsIndexSubject
+                                                    .add(i);
+                                              },
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -280,10 +266,9 @@ class Experiment extends StatelessWidget {
                   Expanded(
                     flex: 10,
                     child: Container(
-                      //padding: EdgeInsets.only(left: 20, right: 20),
-                      //color: Colors.white,
                       child: Column(
                         children: <Widget>[
+                          //Laps label and picker
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.all(
@@ -300,8 +285,7 @@ class Experiment extends StatelessWidget {
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  //Label
-
+                                  //Laps Label
                                   Expanded(
                                       child: Center(
                                           child: Text('Laps',
@@ -311,8 +295,7 @@ class Experiment extends StatelessWidget {
                                                           .size
                                                           .width *
                                                       kInputTextFraction)))),
-                                  //Laps
-
+                                  //Laps picker
                                   Expanded(
                                     flex: 4,
                                     child: PickerContainer(
@@ -329,6 +312,7 @@ class Experiment extends StatelessWidget {
                               ),
                             ),
                           ),
+                          //Max laps label and picker
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.all(
@@ -345,8 +329,7 @@ class Experiment extends StatelessWidget {
                               ),
                               child: Column(
                                 children: <Widget>[
-                                  //Label
-
+                                  //max laps Label
                                   Expanded(
                                       child: Center(
                                           child: Text('Max Laps',
@@ -356,8 +339,7 @@ class Experiment extends StatelessWidget {
                                                           .size
                                                           .width *
                                                       kInputTextFraction)))),
-                                  //Max laps
-
+                                  //Max laps picker
                                   Expanded(
                                     flex: 4,
                                     child: PickerContainer(
@@ -382,7 +364,7 @@ class Experiment extends StatelessWidget {
               ),
             ),
           ),
-          //All output
+          //output label and value
           Expanded(
             flex: 10,
             child: Container(
@@ -395,25 +377,27 @@ class Experiment extends StatelessWidget {
                     MediaQuery.of(context).size.width * kRadiusFraction),
                 color: kCardColor,
               ),
-              //color: Colors.blue,
               child: Column(
                 children: <Widget>[
+                  //Output label
                   Expanded(
                     child: Center(
                       child: StreamBuilder<String>(
-                          stream: Provider.of<Controller>(context).outputLabel,
-                          initialData: '',
-                          builder: (context, snapshot) {
-                            return Text(
-                              snapshot.data,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      kLabelTextFraction),
-                            );
-                          }),
+                        stream: Provider.of<Controller>(context).outputLabel,
+                        initialData: '',
+                        builder: (context, snapshot) {
+                          return Text(
+                            snapshot.data,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: MediaQuery.of(context).size.width *
+                                    kLabelTextFraction),
+                          );
+                        },
+                      ),
                     ),
                   ),
+                  //Output value
                   Expanded(
                     child: Center(
                       child: StreamBuilder<String>(
@@ -436,44 +420,6 @@ class Experiment extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class PickerContainer extends StatelessWidget {
-  final void Function(int) onSelectedItemChanged;
-  final List<Widget> contents;
-
-  PickerContainer(
-      {@required this.contents, @required this.onSelectedItemChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: LayoutBuilder(builder: (context, constraint) {
-        return CupertinoTheme(
-          data: CupertinoThemeData(
-            textTheme: CupertinoTextThemeData(
-              pickerTextStyle: TextStyle(
-                fontSize: constraint.maxHeight * 0.18,
-                color: Colors.black,
-                textBaseline: TextBaseline.alphabetic,
-              ),
-            ),
-          ),
-          child: CupertinoPicker(
-            magnification: 1.5,
-            useMagnifier: true,
-            //backgroundColor: Color(0xFF0000FF),
-            backgroundColor: kCardColor,
-            itemExtent: constraint.maxHeight * 0.20,
-            onSelectedItemChanged: (i) {
-              onSelectedItemChanged(i);
-            },
-            children: contents,
-          ),
-        );
-      }),
     );
   }
 }
