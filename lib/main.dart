@@ -20,8 +20,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'pyCalc Flutter',
         home: Scaffold(
+          backgroundColor: Colors.blue,
           body: SafeArea(
-            child: new NewWidget(),
+            child: new Experiment(),
           ),
         ),
       ),
@@ -29,8 +30,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class NewWidget extends StatelessWidget {
-  const NewWidget({
+class Experiment extends StatelessWidget {
+  const Experiment({
     Key key,
   }) : super(key: key);
 
@@ -45,7 +46,7 @@ class NewWidget extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.red,
+              //color: Colors.red,
               child: Row(
                 children: <Widget>[
                   //Elapsed time and PY
@@ -53,7 +54,7 @@ class NewWidget extends StatelessWidget {
                     flex: 25,
                     child: Container(
                       padding: EdgeInsets.only(left: 20, right: 20),
-                      color: Colors.lightBlueAccent,
+                      //                    color: Colors.lightBlueAccent,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
@@ -173,7 +174,7 @@ class NewWidget extends StatelessWidget {
                     flex: 10,
                     child: Container(
                       padding: EdgeInsets.only(left: 20, right: 20),
-                      color: Colors.white,
+                      //color: Colors.white,
                       child: Column(
                         children: <Widget>[
                           //Label
@@ -215,29 +216,35 @@ class NewWidget extends StatelessWidget {
           //All output
           Expanded(
             child: Container(
-              color: Colors.blue,
+              //color: Colors.blue,
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: StreamBuilder<String>(
-                        stream: Provider.of<Controller>(context)
-                            .correctedTimeString,
-                        initialData: '',
-                        builder: (context, snapshot) {
-                          return Text(
-                            snapshot.data,
-                          );
-                        }),
+                    child: Center(
+                      child: StreamBuilder<String>(
+                          stream: Provider.of<Controller>(context).outputLabel,
+                          initialData: '',
+                          builder: (context, snapshot) {
+                            return Text(
+                              snapshot.data,
+                              style: TextStyle(fontSize: 30),
+                            );
+                          }),
+                    ),
                   ),
                   Expanded(
-                    child: StreamBuilder<String>(
-                        stream: Provider.of<Controller>(context).outputLabel,
-                        initialData: '',
-                        builder: (context, snapshot) {
-                          return Text(
-                            snapshot.data,
-                          );
-                        }),
+                    child: Center(
+                      child: StreamBuilder<String>(
+                          stream: Provider.of<Controller>(context)
+                              .correctedTimeString,
+                          initialData: '',
+                          builder: (context, snapshot) {
+                            return Text(
+                              snapshot.data,
+                              style: TextStyle(fontSize: 30),
+                            );
+                          }),
+                    ),
                   ),
                 ],
               ),
@@ -259,20 +266,39 @@ class PickerContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.blue[50],
+      ),
+      //color: Colors.white,
       child: LayoutBuilder(builder: (context, constraint) {
         return CupertinoTheme(
           data: CupertinoThemeData(
+            //brightness: Brightness.dark,
+            //primaryColor: Colors.green,
+            //primaryContrastingColor: Colors.red,
+            //barBackgroundColor: Colors.purple,
+            //scaffoldBackgroundColor: Colors.teal,
             textTheme: CupertinoTextThemeData(
                 pickerTextStyle: TextStyle(
+              // foreground: Paint(),
+
+              //backgroundColor: Colors.blue.shade900,
+              //decorationColor: Colors.green,
               fontSize: constraint.maxHeight * 0.2,
+              color: Colors.black,
+              textBaseline: TextBaseline.alphabetic,
             )
                 // height: constraint.maxHeight * 1.2),
                 ),
           ),
           child: CupertinoPicker(
+            magnification: 1.5,
+            useMagnifier: true,
+            //backgroundColor: Color(0xFF0000FF),
             backgroundColor: Colors.transparent,
-            itemExtent: constraint.maxHeight * 0.2,
+
+            itemExtent: constraint.maxHeight * 0.20,
             onSelectedItemChanged: (i) {
 //              Provider.of<Controller>(context).setMaxLaps(i);
               onSelectedItemChanged(i);
