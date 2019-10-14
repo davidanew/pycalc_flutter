@@ -14,6 +14,7 @@ class PickerContainer extends StatelessWidget {
     return Container(
       //Layout builder used to calculate font size and item extent
       child: LayoutBuilder(builder: (context, constraint) {
+        //print('Running layout builder for picker sizing');
         return CupertinoTheme(
           data: CupertinoThemeData(
             textTheme: CupertinoTextThemeData(

@@ -5,8 +5,16 @@ import 'package:pycalc_flutter/controller.dart';
 import 'package:pycalc_flutter/constants.dart';
 import 'package:pycalc_flutter/statics.dart';
 import 'package:pycalc_flutter/picker_container.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+//void main() => runApp(MyApp());
+
+void main() {
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override

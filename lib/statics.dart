@@ -24,6 +24,7 @@ class SizeConfig {
     screenHeight = _mediaQueryData.size.height;
 
     aspectRatio = screenWidth / screenHeight;
+    print('Running size calculations');
     print('Aspect ratio is $aspectRatio');
 
     /*
@@ -48,23 +49,18 @@ class SizeConfig {
 
     So this is right
 
-    Now need method to calculate this. Scaling should always be 1 or less than
-
     */
 
-    final double scaleFactor = maxAspectRatio / aspectRatio;
+    final double arScaleFactor = maxAspectRatio / aspectRatio;
+    final double uiScale = min(arScaleFactor, 1);
 
-    //rename height limited scale factor
+    inputTextSize = screenWidth * kInputTextFraction * uiScale;
+    labelTextSize = screenWidth * kLabelTextFraction * uiScale;
+    outputTextSize = screenWidth * kOutputTextFraction * uiScale;
 
-    final double fontScale = min(scaleFactor, 1);
-
-    inputTextSize = screenWidth * kInputTextFraction * fontScale;
-    labelTextSize = screenWidth * kLabelTextFraction * fontScale;
-    outputTextSize = screenWidth * kOutputTextFraction * fontScale;
-
-    margin = screenWidth * kMarginFraction * fontScale;
-    padding = screenWidth * kPaddingFraction * fontScale;
-    spacing = screenWidth * kSpacingFraction * fontScale;
-    radius = screenWidth * kRadiusFraction * fontScale;
+    margin = screenWidth * kMarginFraction * uiScale;
+    padding = screenWidth * kPaddingFraction * uiScale;
+    spacing = screenWidth * kSpacingFraction * uiScale;
+    radius = screenWidth * kRadiusFraction * uiScale;
   }
 }
