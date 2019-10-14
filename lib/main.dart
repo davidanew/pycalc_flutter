@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pycalc_flutter/controller.dart';
 import 'package:pycalc_flutter/constants.dart';
+import 'package:pycalc_flutter/statics.dart';
 import 'package:pycalc_flutter/picker_container.dart';
 
 void main() => runApp(MyApp());
@@ -34,6 +35,8 @@ class Experiment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -55,14 +58,11 @@ class Experiment extends StatelessWidget {
                           //elapsed time label and picker
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kMarginFraction),
-                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.all(SizeConfig.margin),
+                              padding: EdgeInsets.all(SizeConfig.padding),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width *
-                                        kRadiusFraction),
+                                borderRadius:
+                                    BorderRadius.circular(SizeConfig.radius),
                                 color: kCardColor,
                               ),
                               child: Column(
@@ -73,10 +73,7 @@ class Experiment extends StatelessWidget {
                                       child: Text(
                                         'Elapsed Time (H:M:S)',
                                         style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                kInputTextFraction),
+                                            fontSize: SizeConfig.inputTextSize),
                                       ),
                                     ),
                                   ),
@@ -95,20 +92,16 @@ class Experiment extends StatelessWidget {
                                                       context)
                                                   .picker0To9,
                                               onSelectedItemChanged: (i) {
-                                                print(MediaQuery.of(context)
-                                                    .size
-                                                    .width);
+//                                                print(MediaQuery.of(context)
+//                                                    .size
+//                                                    .width);
                                                 Provider.of<Controller>(context)
                                                     .timeHoursIndexSubject
                                                     .add(i);
                                               },
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  kSpacingFraction),
+                                          SizedBox(width: SizeConfig.spacing),
                                           //Minutes picker
                                           Expanded(
                                             child: PickerContainer(
@@ -122,11 +115,7 @@ class Experiment extends StatelessWidget {
                                               },
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  kSpacingFraction),
+                                          SizedBox(width: SizeConfig.spacing),
                                           //Seconds picker
                                           Expanded(
                                             child: PickerContainer(
@@ -151,16 +140,11 @@ class Experiment extends StatelessWidget {
                           //MARK: PY label and picker
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kMarginFraction),
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kPaddingFraction),
+                              margin: EdgeInsets.all(SizeConfig.margin),
+                              padding: EdgeInsets.all(SizeConfig.padding),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width *
-                                        kRadiusFraction),
+                                borderRadius:
+                                    BorderRadius.circular(SizeConfig.radius),
                                 color: kCardColor,
                               ),
                               child: Column(
@@ -170,11 +154,8 @@ class Experiment extends StatelessWidget {
                                       child: Center(
                                           child: Text('Handcap (PY)',
                                               style: TextStyle(
-                                                  fontSize: MediaQuery.of(
-                                                              context)
-                                                          .size
-                                                          .width *
-                                                      kInputTextFraction)))),
+                                                  fontSize: SizeConfig
+                                                      .inputTextSize)))),
                                   //PY Pickers
                                   Expanded(
                                     flex: 4,
@@ -196,11 +177,7 @@ class Experiment extends StatelessWidget {
                                               },
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  kSpacingFraction),
+                                          SizedBox(width: SizeConfig.spacing),
                                           //PY hundreds picker
                                           Expanded(
                                             child: PickerContainer(
@@ -214,11 +191,7 @@ class Experiment extends StatelessWidget {
                                               },
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  kSpacingFraction),
+                                          SizedBox(width: SizeConfig.spacing),
                                           //PY tens picker
                                           Expanded(
                                             child: PickerContainer(
@@ -232,11 +205,7 @@ class Experiment extends StatelessWidget {
                                               },
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  kSpacingFraction),
+                                          SizedBox(width: SizeConfig.spacing),
                                           //PY units picker
                                           Expanded(
                                             child: PickerContainer(
@@ -271,16 +240,11 @@ class Experiment extends StatelessWidget {
                           //Laps label and picker
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kMarginFraction),
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kPaddingFraction),
+                              margin: EdgeInsets.all(SizeConfig.margin),
+                              padding: EdgeInsets.all(SizeConfig.padding),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width *
-                                        kRadiusFraction),
+                                borderRadius:
+                                    BorderRadius.circular(SizeConfig.radius),
                                 color: kCardColor,
                               ),
                               child: Column(
@@ -290,11 +254,8 @@ class Experiment extends StatelessWidget {
                                       child: Center(
                                           child: Text('Laps',
                                               style: TextStyle(
-                                                  fontSize: MediaQuery.of(
-                                                              context)
-                                                          .size
-                                                          .width *
-                                                      kInputTextFraction)))),
+                                                  fontSize: SizeConfig
+                                                      .inputTextSize)))),
                                   //Laps picker
                                   Expanded(
                                     flex: 4,
@@ -315,16 +276,11 @@ class Experiment extends StatelessWidget {
                           //Max laps label and picker
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kMarginFraction),
-                              padding: EdgeInsets.all(
-                                  MediaQuery.of(context).size.width *
-                                      kPaddingFraction),
+                              margin: EdgeInsets.all(SizeConfig.margin),
+                              padding: EdgeInsets.all(SizeConfig.padding),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width *
-                                        kRadiusFraction),
+                                borderRadius:
+                                    BorderRadius.circular(SizeConfig.radius),
                                 color: kCardColor,
                               ),
                               child: Column(
@@ -334,11 +290,8 @@ class Experiment extends StatelessWidget {
                                       child: Center(
                                           child: Text('Max Laps',
                                               style: TextStyle(
-                                                  fontSize: MediaQuery.of(
-                                                              context)
-                                                          .size
-                                                          .width *
-                                                      kInputTextFraction)))),
+                                                  fontSize: SizeConfig
+                                                      .inputTextSize)))),
                                   //Max laps picker
                                   Expanded(
                                     flex: 4,
@@ -368,13 +321,10 @@ class Experiment extends StatelessWidget {
           Expanded(
             flex: 10,
             child: Container(
-              margin: EdgeInsets.all(
-                  MediaQuery.of(context).size.width * kMarginFraction),
-              padding: EdgeInsets.all(
-                  MediaQuery.of(context).size.width * kPaddingFraction),
+              margin: EdgeInsets.all(SizeConfig.margin),
+              padding: EdgeInsets.all(SizeConfig.padding),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.width * kRadiusFraction),
+                borderRadius: BorderRadius.circular(SizeConfig.radius),
                 color: kCardColor,
               ),
               child: Column(
@@ -389,9 +339,8 @@ class Experiment extends StatelessWidget {
                           return Text(
                             snapshot.data,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: MediaQuery.of(context).size.width *
-                                    kLabelTextFraction),
+                            style:
+                                TextStyle(fontSize: SizeConfig.labelTextSize),
                           );
                         },
                       ),
@@ -408,8 +357,7 @@ class Experiment extends StatelessWidget {
                             return Text(
                               snapshot.data,
                               style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.width *
-                                      kOutputTextFraction),
+                                  fontSize: SizeConfig.outputTextSize),
                             );
                           }),
                     ),

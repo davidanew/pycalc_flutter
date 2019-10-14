@@ -106,7 +106,7 @@ class Controller {
       @required double laps,
       @required double maxLaps}) {
     if (time == 0) {
-      return ('Please set elapsed time');
+      return ('Please set Elapsed Time');
     } else if (py == 0) {
       return ('Please set PY');
     } else if (laps == 0) {
