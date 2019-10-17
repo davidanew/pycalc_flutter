@@ -55,27 +55,60 @@ void main() {
       await Future.delayed(const Duration(seconds: 2), () {});
 
       await driver.scrollUntilVisible(
-        find.byValueKey('hoursPicker'),
-        find.byValueKey('x1'),
+        find.byValueKey('timeHoursPicker'),
+        find.byValueKey('timeHours1'),
         dyScroll: -30.0,
       );
 
-//      await Future.delayed(const Duration(seconds: 2), () {});
-//
-//      await driver.scrollUntilVisible(
-//        find.byValueKey('hoursPicker'),
-//        find.byValueKey('5'),
-//        dyScroll: 10.0,
-//      );
-//
-//      await driver.scrollUntilVisible(
-//        find.byValueKey('hoursPicker'),
-//        find.byValueKey('4'),
-//        dyScroll: 1.0,
-//      );
-//
-//      await Future.delayed(const Duration(seconds: 2), () {});
+      await driver.scrollUntilVisible(
+        find.byValueKey('timeMinutesPicker'),
+        find.byValueKey('timeMinutes1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('timeSecondsPicker'),
+        find.byValueKey('timeSeconds1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('pyThousandsPicker'),
+        find.byValueKey('pyThousands1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('pyHundredsPicker'),
+        find.byValueKey('pyHundreds1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('pyTensPicker'),
+        find.byValueKey('pyTens1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('pyUnitsPicker'),
+        find.byValueKey('pyUnits1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('lapsPicker'),
+        find.byValueKey('laps1'),
+        dyScroll: -30.0,
+      );
+
+      await driver.scrollUntilVisible(
+        find.byValueKey('maxLapsPicker'),
+        find.byValueKey('maxLaps1'),
+        dyScroll: -30.0,
+      );
     });
+
 //
 //    test('increments the counter', () async {
 //// First, tap the button.

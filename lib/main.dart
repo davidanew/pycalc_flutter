@@ -98,7 +98,7 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .testPicker0To9,
+                                                  .timeHoursPicker,
                                               onSelectedItemChanged: (i) {
 //                                                print(MediaQuery.of(context)
 //                                                    .size
@@ -107,7 +107,7 @@ class Experiment extends StatelessWidget {
                                                     .timeHoursIndexSubject
                                                     .add(i);
                                               },
-                                              pickerKey: Key('hoursPicker'),
+                                              pickerKey: Key('timeHoursPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -116,13 +116,14 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .picker0To59,
+                                                  .timeMinutesPicker,
                                               onSelectedItemChanged: (i) {
                                                 Provider.of<Controller>(context)
                                                     .timeMinutesIndexSubject
                                                     .add(i);
                                               },
-                                              pickerKey: Key('minutesPicker'),
+                                              pickerKey:
+                                                  Key('timeMinutesPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -131,13 +132,14 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .picker0To59,
+                                                  .timeSecondsPicker,
                                               onSelectedItemChanged: (i) {
                                                 Provider.of<Controller>(context)
                                                     .timeSecondsIndexSubject
                                                     .add(i);
                                               },
-                                              pickerKey: Key('secondsPicker'),
+                                              pickerKey:
+                                                  Key('timeSecondsPicker'),
                                             ),
                                           ),
                                         ],
@@ -180,12 +182,14 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .picker0To9,
+                                                  .pyThousandsPicker,
                                               onSelectedItemChanged: (i) {
                                                 Provider.of<Controller>(context)
                                                     .pyThousandsIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey:
+                                                  Key('pyThousandsPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -194,12 +198,14 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .picker0To9,
+                                                  .pyHundredsPicker,
                                               onSelectedItemChanged: (i) {
                                                 Provider.of<Controller>(context)
                                                     .pyHundredsIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey:
+                                                  Key('pyHundredsPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -208,12 +214,13 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .picker0To9,
+                                                  .pyTensPicker,
                                               onSelectedItemChanged: (i) {
                                                 Provider.of<Controller>(context)
                                                     .pyTensIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey: Key('pyTensPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -222,12 +229,13 @@ class Experiment extends StatelessWidget {
                                             child: PickerContainer(
                                               contents: Provider.of<Controller>(
                                                       context)
-                                                  .picker0To9,
+                                                  .pyUnitsPicker,
                                               onSelectedItemChanged: (i) {
                                                 Provider.of<Controller>(context)
                                                     .pyUnitsIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey: Key('pyUnitsPicker'),
                                             ),
                                           ),
                                         ],
@@ -271,14 +279,15 @@ class Experiment extends StatelessWidget {
                                   Expanded(
                                     flex: 4,
                                     child: PickerContainer(
-                                        contents:
-                                            Provider.of<Controller>(context)
-                                                .picker0To99,
-                                        onSelectedItemChanged: (i) {
-                                          Provider.of<Controller>(context)
-                                              .lapsIndexSubject
-                                              .add(i);
-                                        }),
+                                      contents: Provider.of<Controller>(context)
+                                          .lapsPicker,
+                                      onSelectedItemChanged: (i) {
+                                        Provider.of<Controller>(context)
+                                            .lapsIndexSubject
+                                            .add(i);
+                                      },
+                                      pickerKey: Key('lapsPicker'),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -307,14 +316,15 @@ class Experiment extends StatelessWidget {
                                   Expanded(
                                     flex: 4,
                                     child: PickerContainer(
-                                        contents:
-                                            Provider.of<Controller>(context)
-                                                .picker0To99,
-                                        onSelectedItemChanged: (i) {
-                                          Provider.of<Controller>(context)
-                                              .maxLapsIndexSubject
-                                              .add(i);
-                                        }),
+                                      contents: Provider.of<Controller>(context)
+                                          .maxLapsPicker,
+                                      onSelectedItemChanged: (i) {
+                                        Provider.of<Controller>(context)
+                                            .maxLapsIndexSubject
+                                            .add(i);
+                                      },
+                                      pickerKey: Key('maxLapsPicker'),
+                                    ),
                                   ),
                                 ],
                               ),

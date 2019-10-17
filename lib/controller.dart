@@ -2,6 +2,71 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 class Controller {
+  final List<Widget> timeHoursPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('timeHours${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> timeMinutesPicker = Iterable<int>.generate(60)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('timeMinutes${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> timeSecondsPicker = Iterable<int>.generate(60)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('timeSeconds${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> pyThousandsPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('pyThousands${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> pyHundredsPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('pyHundreds${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> pyTensPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('pyTens${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> pyUnitsPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('pyUnits${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> lapsPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('laps${i.toString()}'),
+          ))
+      .toList();
+
+  final List<Widget> maxLapsPicker = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('maxLaps${i.toString()}'),
+          ))
+      .toList();
+
+  // --------------------------
+
   //GUI uses these to build picker
   final List<Widget> picker0To9 = Iterable<int>.generate(10)
       .map<Widget>((i) => Text(
