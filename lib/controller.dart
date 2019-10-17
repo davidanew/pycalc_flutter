@@ -6,9 +6,16 @@ class Controller {
   final List<Widget> picker0To9 = Iterable<int>.generate(10)
       .map<Widget>((i) => Text(
             i.toString(),
-            key: Key(i.toString()),
           ))
       .toList();
+
+  final List<Widget> testPicker0To9 = Iterable<int>.generate(10)
+      .map<Widget>((i) => Text(
+            i.toString(),
+            key: Key('x${i.toString()}'),
+          ))
+      .toList();
+
   final List<Widget> picker0To59 = Iterable<int>.generate(60)
       .map<Widget>((i) => Text(i.toString()))
       .toList();

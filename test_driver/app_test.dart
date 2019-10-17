@@ -52,11 +52,29 @@ void main() {
 //      await driver.tap(hoursPicker);
       //expect(await driver.getText(counterTextFinder), "0");
 
+      await Future.delayed(const Duration(seconds: 2), () {});
+
       await driver.scrollUntilVisible(
         find.byValueKey('hoursPicker'),
-        find.byValueKey('8'),
+        find.byValueKey('x1'),
         dyScroll: -30.0,
       );
+
+//      await Future.delayed(const Duration(seconds: 2), () {});
+//
+//      await driver.scrollUntilVisible(
+//        find.byValueKey('hoursPicker'),
+//        find.byValueKey('5'),
+//        dyScroll: 10.0,
+//      );
+//
+//      await driver.scrollUntilVisible(
+//        find.byValueKey('hoursPicker'),
+//        find.byValueKey('4'),
+//        dyScroll: 1.0,
+//      );
+//
+//      await Future.delayed(const Duration(seconds: 2), () {});
     });
 //
 //    test('increments the counter', () async {
