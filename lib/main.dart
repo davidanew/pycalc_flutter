@@ -107,6 +107,7 @@ class Experiment extends StatelessWidget {
                                                     .timeHoursIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey: Key('hoursPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -121,6 +122,7 @@ class Experiment extends StatelessWidget {
                                                     .timeMinutesIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey: Key('minutesPicker'),
                                             ),
                                           ),
                                           SizedBox(width: SizeConfig.spacing),
@@ -135,6 +137,7 @@ class Experiment extends StatelessWidget {
                                                     .timeSecondsIndexSubject
                                                     .add(i);
                                               },
+                                              pickerKey: Key('secondsPicker'),
                                             ),
                                           ),
                                         ],

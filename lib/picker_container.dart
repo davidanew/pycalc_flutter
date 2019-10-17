@@ -5,9 +5,12 @@ import 'package:pycalc_flutter/constants.dart';
 class PickerContainer extends StatelessWidget {
   final void Function(int) onSelectedItemChanged;
   final List<Widget> contents;
+  final Key pickerKey;
 
   PickerContainer(
-      {@required this.contents, @required this.onSelectedItemChanged});
+      {@required this.contents,
+      @required this.onSelectedItemChanged,
+      @required this.pickerKey});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class PickerContainer extends StatelessWidget {
             ),
           ),
           child: CupertinoPicker(
+            key: pickerKey,
             magnification: 1.5,
             useMagnifier: true,
             backgroundColor: kCardColor,
