@@ -65,29 +65,6 @@ class Controller {
           ))
       .toList();
 
-  // --------------------------
-
-  //GUI uses these to build picker
-  final List<Widget> picker0To9 = Iterable<int>.generate(10)
-      .map<Widget>((i) => Text(
-            i.toString(),
-          ))
-      .toList();
-
-  final List<Widget> testPicker0To9 = Iterable<int>.generate(10)
-      .map<Widget>((i) => Text(
-            i.toString(),
-            key: Key('x${i.toString()}'),
-          ))
-      .toList();
-
-  final List<Widget> picker0To59 = Iterable<int>.generate(60)
-      .map<Widget>((i) => Text(i.toString()))
-      .toList();
-  final List<Widget> picker0To99 = Iterable<int>.generate(100)
-      .map<Widget>((i) => Text(i.toString()))
-      .toList();
-
   //Input subjects. in the future try and make these input only
   ReplaySubject<int> lapsIndexSubject = ReplaySubject<int>();
   ReplaySubject<int> maxLapsIndexSubject = ReplaySubject<int>();
