@@ -379,6 +379,7 @@ class Experiment extends StatelessWidget {
                               snapshot.data,
                               style: TextStyle(
                                   fontSize: SizeConfig.outputTextSize),
+                              key: Key('correctedTime'),
                             );
                           }),
                     ),
