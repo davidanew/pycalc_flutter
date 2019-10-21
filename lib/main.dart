@@ -362,6 +362,7 @@ class Experiment extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style:
                                 TextStyle(fontSize: SizeConfig.labelTextSize),
+                            key: Key('outputText'),
                           );
                         },
                       ),

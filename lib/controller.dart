@@ -51,14 +51,14 @@ class Controller {
           ))
       .toList();
 
-  final List<Widget> lapsPicker = Iterable<int>.generate(10)
+  final List<Widget> lapsPicker = Iterable<int>.generate(100)
       .map<Widget>((i) => Text(
             i.toString(),
             key: Key('laps${i.toString()}'),
           ))
       .toList();
 
-  final List<Widget> maxLapsPicker = Iterable<int>.generate(10)
+  final List<Widget> maxLapsPicker = Iterable<int>.generate(100)
       .map<Widget>((i) => Text(
             i.toString(),
             key: Key('maxLaps${i.toString()}'),
