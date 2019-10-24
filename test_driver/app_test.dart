@@ -327,7 +327,7 @@ void main() {
           laps: Random().nextInt(100),
           maxLaps: Random().nextInt(100));
 
-      if (inputData.laps <= inputData.maxLaps) {
+      if (inputData.laps >= inputData.maxLaps) {
         inputData.laps = inputData.maxLaps;
       }
 
