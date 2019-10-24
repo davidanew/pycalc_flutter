@@ -6,6 +6,7 @@ import 'package:pycalc_flutter/constants.dart';
 import 'package:pycalc_flutter/statics.dart';
 import 'package:pycalc_flutter/picker_container.dart';
 import 'package:flutter/services.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 //void main() => runApp(MyApp());
 
@@ -376,12 +377,41 @@ class Experiment extends StatelessWidget {
                               .correctedTimeString,
                           initialData: '',
                           builder: (context, snapshot) {
-                            return Text(
-                              snapshot.data,
-                              style: TextStyle(
-                                  fontSize: SizeConfig.outputTextSize),
-                              key: Key('correctedTime'),
+                            return LayoutBuilder(
+                              builder: (BuildContext context,
+                                  BoxConstraints constraints) {
+                                if (snapshot.data == '') {
+                                  return FlatButton(
+                                    textColor: Colors.white,
+                                    color: kBackgroundColor,
+                                    child: Text(
+                                      'Help',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: SizeConfig.outputTextSize,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      helpAlert(context);
+                                    },
+                                  );
+                                } else {
+                                  return Text(
+                                    snapshot.data,
+                                    style: TextStyle(
+                                        fontSize: SizeConfig.outputTextSize),
+                                    key: Key('correctedTime'),
+                                  );
+                                }
+                              },
                             );
+
+//                            return Text(
+//                              snapshot.data,
+//                              style: TextStyle(
+//                                  fontSize: SizeConfig.outputTextSize),
+//                              key: Key('correctedTime'),
+//                            );
                           }),
                     ),
                   ),
@@ -393,4 +423,50 @@ class Experiment extends StatelessWidget {
       ),
     );
   }
+}
+
+void helpAlert(BuildContext context) {
+  Alert(
+    context: context,
+    title: 'INSTRUCTIONS',
+    content: Text.rich(
+      TextSpan(
+        children: <TextSpan>[
+//          TextSpan(
+//            text: 'Instructions\n\n',
+//            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+//          ),
+          TextSpan(
+              text: '\nElapsed Time\n\n',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          TextSpan(text: 'Time for the competitor to complete all laps.\n\n'),
+          TextSpan(
+              text: 'Handicap (PY)\n\n',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          TextSpan(text: 'Portsmouth Yardstick handicap.\n\n'),
+          TextSpan(
+              text: 'Laps\n\n', style: TextStyle(fontWeight: FontWeight.bold)),
+          TextSpan(text: 'Number of laps this competitor completed.\n\n'),
+          TextSpan(
+              text: 'Max Laps\n\n',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          TextSpan(
+              text:
+                  'The maximum number of laps that any competitor completed.'),
+        ],
+      ),
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 17),
+    ),
+    buttons: [
+      DialogButton(
+        child: Text(
+          "OK",
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        onPressed: () => Navigator.pop(context),
+        width: 120,
+      )
+    ],
+  ).show();
 }
