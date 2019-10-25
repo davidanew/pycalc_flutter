@@ -382,6 +382,7 @@ class Experiment extends StatelessWidget {
                                   BoxConstraints constraints) {
                                 if (snapshot.data == '') {
                                   return FlatButton(
+                                    padding: EdgeInsets.all(2),
                                     textColor: Colors.white,
                                     color: kBackgroundColor,
                                     child: Text(
@@ -390,6 +391,7 @@ class Experiment extends StatelessWidget {
                                         color: Colors.white,
                                         fontSize: SizeConfig.outputTextSize,
                                       ),
+                                      key: Key('helpButton'),
                                     ),
                                     onPressed: () {
                                       helpAlert(context);

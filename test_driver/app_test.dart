@@ -1,8 +1,27 @@
+/*
+run test in terminal:
+
+flutter drive --target=test_driver/app.dart
+
+Random tests could fail of one of the values goes to zero, check log file
+
+Manual tests:
+
+Icon test on simulator
+
+MotoG3, Samsung galaxy, iphone 6s, Samsung galaxy tab A, HTC
+
+Check icon
+Do one result
+Check help button
+check rotation lock
+
+*/
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'dart:math' show Random;
-
-//flutter drive --target=test_driver/app.dart
+import 'package:meta/meta.dart';
 
 void main() {
   group('pyCalc App', () {
@@ -18,63 +37,10 @@ void main() {
       }
     });
 
-//    //low value
-//    setTimePicker(time: TimePickerInput(hours: 0, minutes: 0, seconds: 1))
-//    setPyPicker(py: PyPickerInput(thousands: 9, hundreds: 9, tens: 9, units: 9))
-//    setLapsPicker(numLaps: 1)
-//    setMaxLapsPicker(numLaps: 1)
-//    Thread.sleep(forTimeInterval: 1.0)
-//    XCTAssertEqual("0.1", correctedTime.label)
-//    //div zero
-//    setTimePicker(time: TimePickerInput(hours: 1, minutes: 0, seconds: 0))
-//    setPyPicker(py: PyPickerInput(thousands: 0, hundreds: 0, tens: 0, units: 0))
-//    setLapsPicker(numLaps: 1)
-//    setMaxLapsPicker(numLaps: 1)
-//    Thread.sleep(forTimeInterval: 1.0)
-//    XCTAssertEqual("Please set handicap", outputLabel.label)
-//    //high value
-//    setTimePicker(time: TimePickerInput(hours: 9, minutes: 59, seconds: 59))
-//    setPyPicker(py: PyPickerInput(thousands: 0, hundreds: 0, tens: 0, units: 1))
-//    setLapsPicker(numLaps: 1)
-//    setMaxLapsPicker(numLaps: 99)
-//    Thread.sleep(forTimeInterval: 1.0)
-//    //let expectedValue = (9.0 * 60.0 * 60.0 + 59.0 * 60.0 + 59) * (99.0 / 1.0) * (1000.0 / 1)
-//    //print ("expected value is \(expectedValue)")
-//    //print (correctedTime.label)
-//    XCTAssertEqual("3.5639007e+09", correctedTime.label)
-
     test('Test extremes', () async {
-      //    //low value
-//    setTimePicker(time: TimePickerInput(hours: 0, minutes: 0, seconds: 1))
-//    setPyPicker(py: PyPickerInput(thousands: 9, hundreds: 9, tens: 9, units: 9))
-//    setLapsPicker(numLaps: 1)
-//    setMaxLapsPicker(numLaps: 1)
-//    Thread.sleep(forTimeInterval: 1.0)
-//    XCTAssertEqual("0.1", correctedTime.label)
+      //div zero
 
       InputData inputData = InputData(
-          timeHours: 0,
-          timeMinutes: 0,
-          timeSeconds: 1,
-          pyThousands: 9,
-          pyHundreds: 9,
-          pyTens: 9,
-          pyUnits: 9,
-          laps: 1,
-          maxLaps: 1);
-
-      OutputData outputData = OutputData(
-          outputText: 'Corrected Time (seconds)', correctedTime: '0.1');
-
-      await setAndCheck(
-        driver: driver,
-        inputData: inputData,
-        outputData: outputData,
-      );
-
-//    //div zero
-
-      inputData = InputData(
           timeHours: 1,
           timeMinutes: 0,
           timeSeconds: 0,
@@ -85,7 +51,38 @@ void main() {
           laps: 0,
           maxLaps: 1);
 
-      outputData = OutputData(outputText: 'Please set PY', correctedTime: '');
+      OutputData outputData = OutputData(
+          outputText: 'Please set PY', correctedTime: null, helpButton: 'Help');
+
+      await setAndCheck(
+        driver: driver,
+        inputData: inputData,
+        outputData: outputData,
+      );
+
+      //    //low value
+//    setTimePicker(time: TimePickerInput(hours: 0, minutes: 0, seconds: 1))
+//    setPyPicker(py: PyPickerInput(thousands: 9, hundreds: 9, tens: 9, units: 9))
+//    setLapsPicker(numLaps: 1)
+//    setMaxLapsPicker(numLaps: 1)
+//    Thread.sleep(forTimeInterval: 1.0)
+//    XCTAssertEqual("0.1", correctedTime.label)
+
+      inputData = InputData(
+          timeHours: 0,
+          timeMinutes: 0,
+          timeSeconds: 1,
+          pyThousands: 9,
+          pyHundreds: 9,
+          pyTens: 9,
+          pyUnits: 9,
+          laps: 1,
+          maxLaps: 1);
+
+      outputData = OutputData(
+          outputText: 'Corrected Time (seconds)',
+          correctedTime: '0.1',
+          helpButton: null);
 
       await setAndCheck(
         driver: driver,
@@ -116,7 +113,8 @@ void main() {
 
       outputData = OutputData(
           outputText: 'Corrected Time (seconds)',
-          correctedTime: '3563901000.0');
+          correctedTime: '3563901000.0',
+          helpButton: null);
 
       await setAndCheck(
         driver: driver,
@@ -137,8 +135,10 @@ void main() {
           laps: 0,
           maxLaps: 0);
 
-      OutputData outputData =
-          OutputData(outputText: 'Please set Elapsed Time', correctedTime: '');
+      OutputData outputData = OutputData(
+          outputText: 'Please set Elapsed Time',
+          correctedTime: null,
+          helpButton: 'Help');
 
       await setAndCheck(
         driver: driver,
@@ -158,9 +158,7 @@ void main() {
           maxLaps: 0);
 
       outputData = OutputData(
-        outputText: 'Please set PY',
-        correctedTime: '',
-      );
+          outputText: 'Please set PY', correctedTime: null, helpButton: 'Help');
 
       await setAndCheck(
         driver: driver,
@@ -179,7 +177,10 @@ void main() {
           laps: 0,
           maxLaps: 0);
 
-      outputData = OutputData(outputText: 'Please set Laps', correctedTime: '');
+      outputData = OutputData(
+          outputText: 'Please set Laps',
+          correctedTime: null,
+          helpButton: 'Help');
 
       await setAndCheck(
         driver: driver,
@@ -198,8 +199,10 @@ void main() {
           laps: 1,
           maxLaps: 0);
 
-      outputData =
-          OutputData(outputText: 'Please set Max laps', correctedTime: '');
+      outputData = OutputData(
+          outputText: 'Please set Max laps',
+          correctedTime: null,
+          helpButton: 'Help');
 
       await setAndCheck(
         driver: driver,
@@ -220,7 +223,8 @@ void main() {
 
       outputData = OutputData(
           outputText: 'Laps should be equal to or less than max laps',
-          correctedTime: '');
+          correctedTime: null,
+          helpButton: 'Help');
 
       await setAndCheck(
         driver: driver,
@@ -252,7 +256,8 @@ void main() {
       OutputData outputData = OutputData(
           outputText: 'Corrected Time (seconds)',
 //          correctedTime: calcCorrectedTime(inputData: inputData));
-          correctedTime: '3161.6');
+          correctedTime: '3161.6',
+          helpButton: null);
 
       await setAndCheck(
         driver: driver,
@@ -280,7 +285,9 @@ void main() {
           maxLaps: 5);
 
       outputData = OutputData(
-          outputText: 'Corrected Time (seconds)', correctedTime: '3288.4');
+          outputText: 'Corrected Time (seconds)',
+          correctedTime: '3288.4',
+          helpButton: null);
 
       await setAndCheck(
         driver: driver,
@@ -306,7 +313,9 @@ void main() {
           maxLaps: 5);
 
       outputData = OutputData(
-          outputText: 'Corrected Time (seconds)', correctedTime: '3666.7');
+          outputText: 'Corrected Time (seconds)',
+          correctedTime: '3666.7',
+          helpButton: null);
 
       await setAndCheck(
         driver: driver,
@@ -333,7 +342,8 @@ void main() {
 
       OutputData outputData = OutputData(
           outputText: 'Corrected Time (seconds)',
-          correctedTime: calcCorrectedTime(inputData: inputData));
+          correctedTime: calcCorrectedTime(inputData: inputData),
+          helpButton: null);
 
       await setAndCheck(
         driver: driver,
@@ -345,9 +355,9 @@ void main() {
 }
 
 Future<void> setAndCheck({
-  FlutterDriver driver,
-  InputData inputData,
-  OutputData outputData,
+  @required FlutterDriver driver,
+  @required InputData inputData,
+  @required OutputData outputData,
 }) async {
   print('test params '
       '${inputData.timeHours}'
@@ -360,7 +370,8 @@ Future<void> setAndCheck({
       '${inputData.laps} '
       '${inputData.maxLaps} '
       '${outputData.outputText} '
-      '${outputData.correctedTime}');
+      '${outputData.correctedTime} '
+      '${outputData.helpButton}');
 
   var list = [
     ['timeHours', inputData.timeHours],
@@ -397,15 +408,25 @@ Future<void> setAndCheck({
   }
 
   print('Expected output text:${outputData.outputText}');
+  //print('Actual output text:${}');
+
   print('Expected corrected time:${outputData.correctedTime}');
+  print('Expected help button:${outputData.helpButton}');
 
   expect(await driver.getText(find.byValueKey('outputText')),
       outputData.outputText);
-  expect(await driver.getText(find.byValueKey('correctedTime')),
-      outputData.correctedTime);
+
+  if (outputData.helpButton != null) {
+    expect(await driver.getText(find.byValueKey('helpButton')),
+        outputData.helpButton);
+  }
+  if (outputData.correctedTime != null) {
+    expect(await driver.getText(find.byValueKey('correctedTime')),
+        outputData.correctedTime);
+  }
 }
 
-String calcCorrectedTime({InputData inputData}) {
+String calcCorrectedTime({@required InputData inputData}) {
   num time = inputData.timeHours * 60 * 60 +
       inputData.timeMinutes * 60 +
       inputData.timeSeconds;
@@ -430,22 +451,24 @@ class InputData {
   num maxLaps;
 
   InputData(
-      {this.timeHours,
-      this.timeMinutes,
-      this.timeSeconds,
-      this.pyThousands,
-      this.pyHundreds,
-      this.pyTens,
-      this.pyUnits,
-      this.laps,
-      this.maxLaps});
+      {@required this.timeHours,
+      @required this.timeMinutes,
+      @required this.timeSeconds,
+      @required this.pyThousands,
+      @required this.pyHundreds,
+      @required this.pyTens,
+      @required this.pyUnits,
+      @required this.laps,
+      @required this.maxLaps});
 }
 
 class OutputData {
   String outputText;
   String correctedTime;
+  String helpButton;
 
-  OutputData({this.outputText, this.correctedTime});
+  OutputData(
+      {@required this.outputText,
+      @required this.correctedTime,
+      @required this.helpButton});
 }
-
-//3295.2
