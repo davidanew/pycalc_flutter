@@ -11,6 +11,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 //void main() => runApp(MyApp());
 
 void main() {
+  //Only run in portrait
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           backgroundColor: kBackgroundColor,
           body: SafeArea(
-            child: new Experiment(),
+            child: new MainScreen(),
           ),
         ),
       ),
@@ -37,8 +38,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Experiment extends StatelessWidget {
-  const Experiment({
+class MainScreen extends StatelessWidget {
+  const MainScreen({
     Key key,
   }) : super(key: key);
 
@@ -65,188 +66,9 @@ class Experiment extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           //elapsed time label and picker
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(SizeConfig.margin),
-                              padding: EdgeInsets.all(SizeConfig.padding),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SizeConfig.radius),
-                                color: kCardColor,
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  //Elapsed time label
-                                  Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        'Elapsed Time (H:M:S)',
-                                        style: TextStyle(
-                                            fontSize: SizeConfig.inputTextSize),
-                                      ),
-                                    ),
-                                  ),
-                                  //Elapsed time pickers
-                                  Expanded(
-                                    flex: 4,
-                                    child: Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          //Hours picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .timeHoursPicker,
-                                              onSelectedItemChanged: (i) {
-//                                                print(MediaQuery.of(context)
-//                                                    .size
-//                                                    .width);
-                                                Provider.of<Controller>(context)
-                                                    .timeHoursIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey: Key('timeHoursPicker'),
-                                            ),
-                                          ),
-                                          SizedBox(width: SizeConfig.spacing),
-                                          //Minutes picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .timeMinutesPicker,
-                                              onSelectedItemChanged: (i) {
-                                                Provider.of<Controller>(context)
-                                                    .timeMinutesIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey:
-                                                  Key('timeMinutesPicker'),
-                                            ),
-                                          ),
-                                          SizedBox(width: SizeConfig.spacing),
-                                          //Seconds picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .timeSecondsPicker,
-                                              onSelectedItemChanged: (i) {
-                                                Provider.of<Controller>(context)
-                                                    .timeSecondsIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey:
-                                                  Key('timeSecondsPicker'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          ElapsedTimeLabelAndPicker(),
                           //MARK: PY label and picker
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(SizeConfig.margin),
-                              padding: EdgeInsets.all(SizeConfig.padding),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SizeConfig.radius),
-                                color: kCardColor,
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  //PY Label
-                                  Expanded(
-                                      child: Center(
-                                          child: Text('Handcap (PY)',
-                                              style: TextStyle(
-                                                  fontSize: SizeConfig
-                                                      .inputTextSize)))),
-                                  //PY Pickers
-                                  Expanded(
-                                    flex: 4,
-                                    child: Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          //PY thousands picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .pyThousandsPicker,
-                                              onSelectedItemChanged: (i) {
-                                                Provider.of<Controller>(context)
-                                                    .pyThousandsIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey:
-                                                  Key('pyThousandsPicker'),
-                                            ),
-                                          ),
-                                          SizedBox(width: SizeConfig.spacing),
-                                          //PY hundreds picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .pyHundredsPicker,
-                                              onSelectedItemChanged: (i) {
-                                                Provider.of<Controller>(context)
-                                                    .pyHundredsIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey:
-                                                  Key('pyHundredsPicker'),
-                                            ),
-                                          ),
-                                          SizedBox(width: SizeConfig.spacing),
-                                          //PY tens picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .pyTensPicker,
-                                              onSelectedItemChanged: (i) {
-                                                Provider.of<Controller>(context)
-                                                    .pyTensIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey: Key('pyTensPicker'),
-                                            ),
-                                          ),
-                                          SizedBox(width: SizeConfig.spacing),
-                                          //PY units picker
-                                          Expanded(
-                                            child: PickerContainer(
-                                              contents: Provider.of<Controller>(
-                                                      context)
-                                                  .pyUnitsPicker,
-                                              onSelectedItemChanged: (i) {
-                                                Provider.of<Controller>(context)
-                                                    .pyUnitsIndexSubject
-                                                    .add(i);
-                                              },
-                                              pickerKey: Key('pyUnitsPicker'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          PYLabelAndPicker(),
                         ],
                       ),
                     ),
@@ -258,79 +80,9 @@ class Experiment extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           //Laps label and picker
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(SizeConfig.margin),
-                              padding: EdgeInsets.all(SizeConfig.padding),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SizeConfig.radius),
-                                color: kCardColor,
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  //Laps Label
-                                  Expanded(
-                                      child: Center(
-                                          child: Text('Laps',
-                                              style: TextStyle(
-                                                  fontSize: SizeConfig
-                                                      .inputTextSize)))),
-                                  //Laps picker
-                                  Expanded(
-                                    flex: 4,
-                                    child: PickerContainer(
-                                      contents: Provider.of<Controller>(context)
-                                          .lapsPicker,
-                                      onSelectedItemChanged: (i) {
-                                        Provider.of<Controller>(context)
-                                            .lapsIndexSubject
-                                            .add(i);
-                                      },
-                                      pickerKey: Key('lapsPicker'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          LapsLabelAndPicker(),
                           //Max laps label and picker
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(SizeConfig.margin),
-                              padding: EdgeInsets.all(SizeConfig.padding),
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(SizeConfig.radius),
-                                color: kCardColor,
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  //max laps Label
-                                  Expanded(
-                                      child: Center(
-                                          child: Text('Max Laps',
-                                              style: TextStyle(
-                                                  fontSize: SizeConfig
-                                                      .inputTextSize)))),
-                                  //Max laps picker
-                                  Expanded(
-                                    flex: 4,
-                                    child: PickerContainer(
-                                      contents: Provider.of<Controller>(context)
-                                          .maxLapsPicker,
-                                      onSelectedItemChanged: (i) {
-                                        Provider.of<Controller>(context)
-                                            .maxLapsIndexSubject
-                                            .add(i);
-                                      },
-                                      pickerKey: Key('maxLapsPicker'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
+                          MaxLapsLabelAndPicker()
                         ],
                       ),
                     ),
@@ -340,73 +92,348 @@ class Experiment extends StatelessWidget {
             ),
           ),
           //output label and value
-          Expanded(
-            flex: 10,
-            child: Container(
-              margin: EdgeInsets.all(SizeConfig.margin),
-              padding: EdgeInsets.all(SizeConfig.padding),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(SizeConfig.radius),
-                color: kCardColor,
+          new OutputLabelAndValue(),
+        ],
+      ),
+    );
+  }
+}
+
+class ElapsedTimeLabelAndPicker extends StatelessWidget {
+  const ElapsedTimeLabelAndPicker({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(SizeConfig.margin),
+        padding: EdgeInsets.all(SizeConfig.padding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeConfig.radius),
+          color: kCardColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            //Elapsed time label
+            Expanded(
+              child: Center(
+                child: Text(
+                  'Elapsed Time (H:M:S)',
+                  style: TextStyle(fontSize: SizeConfig.inputTextSize),
+                ),
               ),
-              child: Column(
-                children: <Widget>[
-                  //Output label
-                  Expanded(
-                    child: Center(
-                      child: StreamBuilder<String>(
-                        stream: Provider.of<Controller>(context).outputLabel,
-                        initialData: '',
-                        builder: (context, snapshot) {
-                          return Text(
-                            snapshot.data,
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: SizeConfig.labelTextSize),
-                            key: Key('outputText'),
-                          );
+            ),
+            //Elapsed time pickers
+            Expanded(
+              flex: 4,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    //Hours picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents:
+                            Provider.of<Controller>(context).timeHoursPicker,
+                        onSelectedItemChanged: (i) {
+//                                                print(MediaQuery.of(context)
+//                                                    .size
+//                                                    .width);
+                          Provider.of<Controller>(context)
+                              .timeHoursIndexSubject
+                              .add(i);
                         },
+                        pickerKey: Key('timeHoursPicker'),
                       ),
                     ),
-                  ),
-                  //Output value
-                  Expanded(
-                    child: Center(
-                      child: StreamBuilder<String>(
-                          stream: Provider.of<Controller>(context)
-                              .correctedTimeString,
-                          initialData: '',
-                          builder: (context, snapshot) {
-                            return LayoutBuilder(
-                              builder: (BuildContext context,
-                                  BoxConstraints constraints) {
-                                if (snapshot.data == '') {
-                                  return FlatButton(
-                                    padding: EdgeInsets.all(2),
-                                    textColor: Colors.white,
-                                    color: kBackgroundColor,
-                                    child: Text(
-                                      'Help',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: SizeConfig.outputTextSize,
-                                      ),
-                                      key: Key('helpButton'),
-                                    ),
-                                    onPressed: () {
-                                      helpAlert(context);
-                                    },
-                                  );
-                                } else {
-                                  return Text(
-                                    snapshot.data,
-                                    style: TextStyle(
-                                        fontSize: SizeConfig.outputTextSize),
-                                    key: Key('correctedTime'),
-                                  );
-                                }
+                    SizedBox(width: SizeConfig.spacing),
+                    //Minutes picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents:
+                            Provider.of<Controller>(context).timeMinutesPicker,
+                        onSelectedItemChanged: (i) {
+                          Provider.of<Controller>(context)
+                              .timeMinutesIndexSubject
+                              .add(i);
+                        },
+                        pickerKey: Key('timeMinutesPicker'),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.spacing),
+                    //Seconds picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents:
+                            Provider.of<Controller>(context).timeSecondsPicker,
+                        onSelectedItemChanged: (i) {
+                          Provider.of<Controller>(context)
+                              .timeSecondsIndexSubject
+                              .add(i);
+                        },
+                        pickerKey: Key('timeSecondsPicker'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PYLabelAndPicker extends StatelessWidget {
+  const PYLabelAndPicker({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(SizeConfig.margin),
+        padding: EdgeInsets.all(SizeConfig.padding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeConfig.radius),
+          color: kCardColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            //PY Label
+            Expanded(
+                child: Center(
+                    child: Text('Handcap (PY)',
+                        style: TextStyle(fontSize: SizeConfig.inputTextSize)))),
+            //PY Pickers
+            Expanded(
+              flex: 4,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    //PY thousands picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents:
+                            Provider.of<Controller>(context).pyThousandsPicker,
+                        onSelectedItemChanged: (i) {
+                          Provider.of<Controller>(context)
+                              .pyThousandsIndexSubject
+                              .add(i);
+                        },
+                        pickerKey: Key('pyThousandsPicker'),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.spacing),
+                    //PY hundreds picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents:
+                            Provider.of<Controller>(context).pyHundredsPicker,
+                        onSelectedItemChanged: (i) {
+                          Provider.of<Controller>(context)
+                              .pyHundredsIndexSubject
+                              .add(i);
+                        },
+                        pickerKey: Key('pyHundredsPicker'),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.spacing),
+                    //PY tens picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents: Provider.of<Controller>(context).pyTensPicker,
+                        onSelectedItemChanged: (i) {
+                          Provider.of<Controller>(context)
+                              .pyTensIndexSubject
+                              .add(i);
+                        },
+                        pickerKey: Key('pyTensPicker'),
+                      ),
+                    ),
+                    SizedBox(width: SizeConfig.spacing),
+                    //PY units picker
+                    Expanded(
+                      child: PickerContainer(
+                        contents:
+                            Provider.of<Controller>(context).pyUnitsPicker,
+                        onSelectedItemChanged: (i) {
+                          Provider.of<Controller>(context)
+                              .pyUnitsIndexSubject
+                              .add(i);
+                        },
+                        pickerKey: Key('pyUnitsPicker'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LapsLabelAndPicker extends StatelessWidget {
+  const LapsLabelAndPicker({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(SizeConfig.margin),
+        padding: EdgeInsets.all(SizeConfig.padding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeConfig.radius),
+          color: kCardColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            //Laps Label
+            Expanded(
+                child: Center(
+                    child: Text('Laps',
+                        style: TextStyle(fontSize: SizeConfig.inputTextSize)))),
+            //Laps picker
+            Expanded(
+              flex: 4,
+              child: PickerContainer(
+                contents: Provider.of<Controller>(context).lapsPicker,
+                onSelectedItemChanged: (i) {
+                  Provider.of<Controller>(context).lapsIndexSubject.add(i);
+                },
+                pickerKey: Key('lapsPicker'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MaxLapsLabelAndPicker extends StatelessWidget {
+  const MaxLapsLabelAndPicker({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(SizeConfig.margin),
+        padding: EdgeInsets.all(SizeConfig.padding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeConfig.radius),
+          color: kCardColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            //max laps Label
+            Expanded(
+                child: Center(
+                    child: Text('Max Laps',
+                        style: TextStyle(fontSize: SizeConfig.inputTextSize)))),
+            //Max laps picker
+            Expanded(
+              flex: 4,
+              child: PickerContainer(
+                contents: Provider.of<Controller>(context).maxLapsPicker,
+                onSelectedItemChanged: (i) {
+                  Provider.of<Controller>(context).maxLapsIndexSubject.add(i);
+                },
+                pickerKey: Key('maxLapsPicker'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class OutputLabelAndValue extends StatelessWidget {
+  const OutputLabelAndValue({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 10,
+      child: Container(
+        margin: EdgeInsets.all(SizeConfig.margin),
+        padding: EdgeInsets.all(SizeConfig.padding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SizeConfig.radius),
+          color: kCardColor,
+        ),
+        child: Column(
+          children: <Widget>[
+            //Output label
+            Expanded(
+              child: Center(
+                child: StreamBuilder<String>(
+                  stream: Provider.of<Controller>(context).outputLabel,
+                  initialData: '',
+                  builder: (context, snapshot) {
+                    return Text(
+                      snapshot.data,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: SizeConfig.labelTextSize),
+                      key: Key('outputText'),
+                    );
+                  },
+                ),
+              ),
+            ),
+            //Output value
+            Expanded(
+              child: Center(
+                child: StreamBuilder<String>(
+                    stream:
+                        Provider.of<Controller>(context).correctedTimeString,
+                    initialData: '',
+                    builder: (context, snapshot) {
+                      return LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          if (snapshot.data == '') {
+                            return FlatButton(
+                              padding: EdgeInsets.all(2),
+                              textColor: Colors.white,
+                              color: kBackgroundColor,
+                              child: Text(
+                                'Help',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: SizeConfig.outputTextSize,
+                                ),
+                                key: Key('helpButton'),
+                              ),
+                              onPressed: () {
+                                helpAlert(context);
                               },
                             );
+                          } else {
+                            return Text(
+                              snapshot.data,
+                              style: TextStyle(
+                                  fontSize: SizeConfig.outputTextSize),
+                              key: Key('correctedTime'),
+                            );
+                          }
+                        },
+                      );
 
 //                            return Text(
 //                              snapshot.data,
@@ -414,14 +441,11 @@ class Experiment extends StatelessWidget {
 //                                  fontSize: SizeConfig.outputTextSize),
 //                              key: Key('correctedTime'),
 //                            );
-                          }),
-                    ),
-                  ),
-                ],
+                    }),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
