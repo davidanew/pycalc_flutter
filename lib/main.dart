@@ -11,7 +11,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 //void main() => runApp(MyApp());
 
 void main() {
-  //Only run in portrait
+  //Only run in portrait as rotation does not redraw correctly
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(MyApp());
@@ -21,16 +21,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Controller does calculations and holds picker data
     final Controller controller = Controller();
-
+    //Provide controller for stream builders
     return Provider<Controller>(
       builder: (context) => controller,
       child: MaterialApp(
-        title: 'pyCalc Flutter',
+        title: 'pyCalc',
         home: Scaffold(
           backgroundColor: kBackgroundColor,
           body: SafeArea(
-            child: new MainScreen(),
+            child: MainScreen(),
           ),
         ),
       ),
@@ -45,14 +46,13 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //This class calculates various dimensions and sizes
     SizeConfig().init(context);
-
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        // Contains everything
         children: <Widget>[
-          //All pickers
+          //All Pickers and their labels
           Expanded(
             flex: 27,
             child: Container(
@@ -65,9 +65,7 @@ class MainScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          //elapsed time label and picker
                           ElapsedTimeLabelAndPicker(),
-                          //MARK: PY label and picker
                           PYLabelAndPicker(),
                         ],
                       ),
@@ -79,9 +77,7 @@ class MainScreen extends StatelessWidget {
                     child: Container(
                       child: Column(
                         children: <Widget>[
-                          //Laps label and picker
                           LapsLabelAndPicker(),
-                          //Max laps label and picker
                           MaxLapsLabelAndPicker()
                         ],
                       ),
@@ -91,7 +87,7 @@ class MainScreen extends StatelessWidget {
               ),
             ),
           ),
-          //output label and value
+          //output label and value (one card)
           new OutputLabelAndValue(),
         ],
       ),
@@ -138,9 +134,6 @@ class ElapsedTimeLabelAndPicker extends StatelessWidget {
                         contents:
                             Provider.of<Controller>(context).timeHoursPicker,
                         onSelectedItemChanged: (i) {
-//                                                print(MediaQuery.of(context)
-//                                                    .size
-//                                                    .width);
                           Provider.of<Controller>(context)
                               .timeHoursIndexSubject
                               .add(i);
@@ -404,6 +397,7 @@ class OutputLabelAndValue extends StatelessWidget {
                         Provider.of<Controller>(context).correctedTimeString,
                     initialData: '',
                     builder: (context, snapshot) {
+                      //If there is no corrected time data then display a help button
                       return LayoutBuilder(
                         builder:
                             (BuildContext context, BoxConstraints constraints) {
@@ -434,13 +428,6 @@ class OutputLabelAndValue extends StatelessWidget {
                           }
                         },
                       );
-
-//                            return Text(
-//                              snapshot.data,
-//                              style: TextStyle(
-//                                  fontSize: SizeConfig.outputTextSize),
-//                              key: Key('correctedTime'),
-//                            );
                     }),
               ),
             ),
@@ -458,10 +445,6 @@ void helpAlert(BuildContext context) {
     content: Text.rich(
       TextSpan(
         children: <TextSpan>[
-//          TextSpan(
-//            text: 'Instructions\n\n',
-//            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-//          ),
           TextSpan(
               text: '\nElapsed Time\n\n',
               style: TextStyle(fontWeight: FontWeight.bold)),

@@ -2,11 +2,12 @@ import 'package:pycalc_flutter/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+//This class calculates various dimensions and sizes
+
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
   static double screenWidth;
   static double screenHeight;
-
   static double margin;
   static double padding;
   static double spacing;
@@ -14,15 +15,16 @@ class SizeConfig {
   static double inputTextSize;
   static double labelTextSize;
   static double outputTextSize;
-  //Should be with other constants
+  //Could be with other constants
   static const maxAspectRatio = 0.6;
   static double aspectRatio;
 
+  //This is run when build is run to get the device dimensions and
+  //calculate sizes
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
-
     aspectRatio = screenWidth / screenHeight;
     print('Running size calculations');
     print('Aspect ratio is $aspectRatio');

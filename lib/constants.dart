@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Some of these could go in the statics file
 const double kMarginFraction = 0.025;
 const double kPaddingFraction = 0.025;
 const double kSpacingFraction = 0.025;

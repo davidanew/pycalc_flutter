@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
+//This is a BLoC controller using RxDart
 class Controller {
+  //Generate lists for picker data
   final List<Widget> timeHoursPicker = Iterable<int>.generate(10)
       .map<Widget>((i) => Text(
             i.toString(),
